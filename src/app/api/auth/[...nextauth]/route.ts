@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthOptions } from "next-auth";
 import bcrypt from "bcrypt";
 import prisma from "@/db";
+import { UserRole } from "@/types";
 
 // NextAuth configuration
 export const authOptions: NextAuthOptions = {
@@ -10,22 +11,20 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text" },
+        cellphone: { label: "Cellphone", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: Record<string, string> | undefined) {
-        if (!credentials?.username || !credentials?.password) {
+        if (!credentials?.cellphone || !credentials?.password) {
           return null;
         }
 
-        // Find user by email/username
+        // Find user by cellphone
         const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.username, // Assuming 'username' is the email
-          },
+          where: { cellphone: credentials.cellphone },
         });
 
-        // If user not found or password doesn't match, return null
+        // Validate user and password
         if (
           !user ||
           !(await bcrypt.compare(credentials.password, user.password))
@@ -33,28 +32,41 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Return user object (exclude sensitive fields like password)
+        // Ensure role type safety
+        const role = (user.role as UserRole) || UserRole.USER;
+
+        // Return user object with role-specific fields
         return {
           id: user.id,
           name: user.name,
           email: user.email,
-          //   role: user.role, // Optional field
+          role,
+          cellphone: user.cellphone,
+          cpf: role !== UserRole.IMOBILIARIA ? user.cpf : null,
+          cnpj: role === UserRole.IMOBILIARIA ? user.cnpj : null,
+          creci: role === UserRole.AGENTE ? user.creci : null,
         };
       },
     }),
   ],
   pages: {
-    signIn: "/login", // Custom login page (optional)
+    signIn: "/login", // Custom login page
   },
   callbacks: {
     async jwt({ token, user }) {
+      // Dynamically copy fields from user to token
       if (user) {
-        token.id = user.id;
+        Object.assign(token, user);
       }
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.id;
+      // Merge token fields into session.user
+      session.user = {
+        ...session.user,
+        ...token,
+        role: token.role as UserRole, // Explicitly cast role to UserRole
+      };
       return session;
     },
   },

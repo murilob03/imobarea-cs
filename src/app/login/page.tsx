@@ -10,19 +10,19 @@ export default function SignIn() {
     e.preventDefault();
 
     const form = e.currentTarget;
-    const username = (form.elements.namedItem("username") as HTMLInputElement)
+    const cellphone = (form.elements.namedItem("cellphone") as HTMLInputElement)
       .value;
     const password = (form.elements.namedItem("password") as HTMLInputElement)
       .value;
 
     const result = await signIn("credentials", {
-      username,
+      cellphone,
       password,
       redirect: false,
     });
 
     if (result?.error) {
-      setError("Invalid username or password");
+      setError("Invalid cellphone or password");
     } else {
       window.location.href = "/dashboard"; // Redirect after login
     }
@@ -33,7 +33,7 @@ export default function SignIn() {
       <h1>Sign In</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
-        <input type="text" name="username" placeholder="Username" required />
+        <input type="text" name="cellphone" placeholder="Cellphone" required />
         <input
           type="password"
           name="password"
