@@ -3,26 +3,39 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const users = [
-  {
-    email: "john.doe@example.com",
-    name: "John Doe",
-    password: "password123",
-  },
-  {
-    email: "jane.smith@example.com",
-    name: "Jane Smith",
-    password: "password123",
-  },
-  {
-    email: "alice.jones@example.com",
-    name: "Alice Jones",
-    password: "password123",
-  },
-  {
-    email: "bob.brown@example.com",
-    name: "Bob Brown",
-    password: "password123",
-  },
+    {
+        role: "USER",
+        email: "john.doe@example.com",
+        password: "$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC", // senha123
+        name: "John Doe",
+        cellphone: "99123456789",
+        cpf: "12312312312",
+      },
+      {
+        role: "ADMIN",
+        email: "jane.smith@example.com",
+        password: "$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC",
+        name: "Jane Smith",
+        cellphone: "89123456789",
+        cpf: "12312312312",
+      },
+      {
+        role: "AGENTE",
+        email: "alice.jones@example.com",
+        password: "$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC",
+        name: "Alice Jones",
+        cellphone: "79123456789",
+        cpf: "12312312312",
+        creci: "12312312312",
+      },
+      {
+        role: "IMOBILIARIA",
+        email: "imobas.imobas@example.com",
+        password: "$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC",
+        cellphone: "69123456789",
+        name: "Imobas",
+        cnpj: "12312312312",
+      },
 ];
 
 async function seedData() {
