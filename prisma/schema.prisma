@@ -11,8 +11,14 @@ datasource db {
 }
 
 model User {
-    id       String  @id @default(cuid())
-    email    String  @unique
-    name     String?
-    password String
+    id        String   @id @default(uuid())
+    role      String   @default("USER") // USER, ADMIN, IMOBILIARIA, AGENTE
+    name      String
+    cellphone String   @unique
+    email     String   @unique
+    password  String
+    cpf       String? // Nullable (for common/admin/agente only)
+    cnpj      String? // Nullable (for imobiliaria only)
+    creci     String? // Nullable (for agente only)
+    createdAt DateTime @default(now())
 }
