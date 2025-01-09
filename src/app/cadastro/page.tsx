@@ -35,9 +35,9 @@ export default function AccountType() {
         </label>
       </div >
       <div className="mt-auto w-full flex justify-center">
-          <button className="text-base p-4 h-[71px] w-[344px] max-w-sm bg-[#8B5E3C] text-white font-bold rounded-full">
+          <a className="text-base p-4 h-[71px] w-[344px] max-w-sm bg-[#8B5E3C] text-white font-bold rounded-full flex items-center justify-center" href="/">
             Continuar
-          </button>
+          </a>
         </div>
     </div>
   );
