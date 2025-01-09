@@ -7,7 +7,7 @@ export default function DropdownButton() {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  const handleOptionSelect = (option) => {
+  const handleOptionSelect = (option: string) => {
     setSelectedOption(option); // Atualiza o valor selecionado
     setIsOpen(false); // Fecha o dropdown
   };
@@ -16,9 +16,9 @@ export default function DropdownButton() {
     <div className="relative inline-block text-left">
       {/* Botão principal */}
       <div className="flex items-center bg-marrom_claro p-[18px_8px] rounded-2xl font-bold">
-        <button onClick={toggleDropdown} className="flex items-center gap-2">
+        <button onClick={toggleDropdown} className="flex">
           {selectedOption}
-          <ChevronDown />
+          <ChevronDown className="text-marrom"/>
         </button>
       </div>
       {/* Menu dropdown */}

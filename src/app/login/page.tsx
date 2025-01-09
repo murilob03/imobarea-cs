@@ -44,15 +44,15 @@ export default function SignIn() {
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-px-64">
-            <div className="flex flex-col gap-px-32">
-              <p>Por favor, adicione corretamente o número: </p>
+            <div className="flex flex-col gap-px-16">
+              <p>Por favor, adicione corretamente o <span className="font-bold">número</span>: </p>
               <div className="flex gap-px-18">
                 <DropdownButton></DropdownButton>
                 <InputField
                 label=""
                 type="text"
                 name="cellphone"
-                placeholder="Número de telefone"
+                placeholder=""
                 required
                 />
               </div>
@@ -63,7 +63,7 @@ export default function SignIn() {
                 label="Senha: "
                 type="password"
                 name="password"
-                placeholder="Senha"
+                placeholder=""
                 required
               />
             </div>
