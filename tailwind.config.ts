@@ -11,6 +11,12 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        bege: "#F6F3EC",
+        marrom: "#9D6F4D"
+      },
+      spacing: {
+        'px-32': '32px',
+        'px-100': '100px'
       },
     },
   },

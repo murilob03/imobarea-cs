@@ -2,6 +2,7 @@
 
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
+import "./globals.css";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -10,7 +11,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children, session }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <body>
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>
