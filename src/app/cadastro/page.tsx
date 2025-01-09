@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function AccountType() {
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-[#FAF5F0] p-6">
-      <div className="text-">
+      <div className="mt-[64px]">
         <h1 className="text-2xl font-bold mb-[48px]">SEJA BEM-VINDO!</h1>
         <p className="text-base mb-[32px]">Crie sua conta de maneira rápida e fácil!</p>
         <p className="mb-4 font-bold">Selecione o tipo de conta que deseja criar:</p>
@@ -33,10 +33,12 @@ export default function AccountType() {
           />
           <span className="text-xl font-semibold">Agente Imobiliário</span>
         </label>
-      </div>
-      <button className="text-base mt-8 p-4 h-[71px] w-[344px] max-w-sm bg-[#8B5E3C] text-white font-bold rounded-full">
-        Continuar
-      </button>
+      </div >
+      <div className="mt-auto w-full flex justify-center">
+          <button className="text-base p-4 h-[71px] w-[344px] max-w-sm bg-[#8B5E3C] text-white font-bold rounded-full">
+            Continuar
+          </button>
+        </div>
     </div>
   );
 }
