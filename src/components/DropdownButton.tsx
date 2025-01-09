@@ -23,11 +23,11 @@ export default function DropdownButton() {
       </div>
       {/* Menu dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+        <div className="absolute right-0 mt-2 w-auto bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 z-10">
           <ul className="py-1">
             <li>
               <button
-                className="w-full text-left px-4 py-2 bg-bege text-red-500 hover:bg-gray-100"
+                className="w-auto text-center px-4 py-2 text-black hover:bg-gray-200"
                 onClick={() => handleOptionSelect("+44")}
               >
                 +44
@@ -35,7 +35,7 @@ export default function DropdownButton() {
             </li>
             <li>
               <button
-                className="w-full text-left px-4 py-2 text-black hover:bg-gray-100"
+                className="w-auto text-center px-4 py-2 text-black hover:bg-gray-200"
                 onClick={() => handleOptionSelect("+11")}
               >
                 +11
@@ -43,7 +43,7 @@ export default function DropdownButton() {
             </li>
             <li>
               <button
-                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                className="w-auto text-center px-4 py-2 text-black hover:bg-gray-200"
                 onClick={() => handleOptionSelect("+43")}
               >
                 +43
