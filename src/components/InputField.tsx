@@ -5,7 +5,7 @@ export default function InputField({
   type,
   name,
   placeholder,
-  required
+  required,
 }) {
   return (
     <div className="flex flex-col w-full gap-px-16">
