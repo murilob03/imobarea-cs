@@ -15,21 +15,21 @@ export default function Home() {
         <div className="flex flex-col gap-px-32">
           {/* deixar o _blank por enquanto apenas para testes */}
           <a
-            className="flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] bg-marrom rounded-full"
+            className="flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] bg-marrom rounded-full font-bold text-white"
             href="/login"
             target="_blank"
           >
             Continue com o número de celular
           </a>
           <a
-            className="flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] border border-solid border-black rounded-full"
+            className="flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] border border-solid border-black rounded-full font-bold"
             href="/login"
             target="_blank"
           >
             Login com Google
           </a>
           <a
-            className="flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] border border-solid border-black rounded-full"
+            className="flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] border border-solid border-black rounded-full font-bold"
             href="/login"
             target="_blank"
           >
