@@ -17,7 +17,7 @@ export default function DropdownButton({ selectedOption, setSelectedOption }: Dr
   };
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left w-[71px] h-[60px]">
       {/* Botão principal */}
       <div className="flex items-center bg-marrom_claro p-[18px_8px] rounded-2xl font-bold">
         <button onClick={toggleDropdown} className="flex">
