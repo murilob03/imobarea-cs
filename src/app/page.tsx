@@ -1,4 +1,5 @@
 import Image from "next/image";
+import CustomButton from "@/components/CustomButton";
 
 export default function Home() {
   return (
@@ -13,13 +14,11 @@ export default function Home() {
           priority
         />
         <div className="flex flex-col gap-px-32">
-          {/* deixar o _blank por enquanto apenas para testes */}
-          <a
-            className="flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] bg-marrom rounded-full font-bold text-white"
-            href="/login"
-          >
-            Continue com o número de celular
-          </a>
+          
+          <CustomButton
+          href="/login"
+          text="Continue com o número de celular"
+          />
           <a
             className="flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] border border-solid border-black rounded-full font-bold"
             href=""
