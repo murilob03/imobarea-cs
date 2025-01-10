@@ -3,6 +3,7 @@
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 import { Inter } from "next/font/google"; // Import Inter font
+
 import "./globals.css";
 
 interface RootLayoutProps {
