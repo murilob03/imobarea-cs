@@ -8,6 +8,7 @@ import InputField from "@/components/InputField";
 
 export default function SignIn() {
   const [error, setError] = useState<string>("");
+  const [areaCode, setAreaCode] = useState("44");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,7 +20,7 @@ export default function SignIn() {
       .value;
 
     const result = await signIn("credentials", {
-      cellphone,
+      cellphone: areaCode + cellphone,
       password,
       redirect: false,
     });
@@ -45,15 +46,21 @@ export default function SignIn() {
         >
           <div className="flex flex-col gap-px-64">
             <div className="flex flex-col gap-px-16">
-              <p>Por favor, adicione corretamente o <span className="font-bold">número</span>: </p>
+              <p>
+                Por favor, adicione corretamente o{" "}
+                <span className="font-bold">número</span>:{" "}
+              </p>
               <div className="flex gap-px-18">
-                <DropdownButton></DropdownButton>
+                <DropdownButton
+                  selectedOption={areaCode}
+                  setSelectedOption={setAreaCode}
+                ></DropdownButton>
                 <InputField
-                label=""
-                type="text"
-                name="cellphone"
-                placeholder=""
-                required
+                  label=""
+                  type="text"
+                  name="cellphone"
+                  placeholder=""
+                  required
                 />
               </div>
             </div>

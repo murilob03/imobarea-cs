@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-export default function DropdownButton() {
+interface DropdownButtonProps {
+  selectedOption: string;
+  setSelectedOption: (option: string) => void;
+}
+
+export default function DropdownButton({ selectedOption, setSelectedOption }: DropdownButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("+44"); // Valor padrão inicial
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -17,7 +21,7 @@ export default function DropdownButton() {
       {/* Botão principal */}
       <div className="flex items-center bg-marrom_claro p-[18px_8px] rounded-2xl font-bold">
         <button onClick={toggleDropdown} className="flex">
-          {selectedOption}
+          {'+' + selectedOption}
           <ChevronDown className="text-marrom"/>
         </button>
       </div>
@@ -28,7 +32,7 @@ export default function DropdownButton() {
             <li>
               <button
                 className="w-auto text-center px-4 py-2 text-black hover:bg-gray-200"
-                onClick={() => handleOptionSelect("+44")}
+                onClick={() => handleOptionSelect("44")}
               >
                 +44
               </button>
@@ -36,7 +40,7 @@ export default function DropdownButton() {
             <li>
               <button
                 className="w-auto text-center px-4 py-2 text-black hover:bg-gray-200"
-                onClick={() => handleOptionSelect("+11")}
+                onClick={() => handleOptionSelect("11")}
               >
                 +11
               </button>
@@ -44,7 +48,7 @@ export default function DropdownButton() {
             <li>
               <button
                 className="w-auto text-center px-4 py-2 text-black hover:bg-gray-200"
-                onClick={() => handleOptionSelect("+43")}
+                onClick={() => handleOptionSelect("43")}
               >
                 +43
               </button>
