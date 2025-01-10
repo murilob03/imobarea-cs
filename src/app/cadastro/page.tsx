@@ -62,7 +62,7 @@ export default function AccountType() {
       </div>
       <div className="mt-auto w-full flex justify-center">
         <button
-          className="text-base p-4 h-[71px] w-[344px] max-w-sm bg-[#8B5E3C] text-white font-bold rounded-full flex items-center justify-center"
+          className="text-base p-4 mb-6 h-[71px] w-[344px] max-w-sm bg-[#8B5E3C] text-white font-bold rounded-full flex items-center justify-center"
           onClick={handleContinue}
         >
           Continuar
