@@ -5,8 +5,7 @@ import InputField from '@/components/InputField'
 import DropdownButton from '@/components/DropdownButton'
 import CustomButton from '@/components/CustomButton'
 import { useRouter } from 'next/navigation'
-import { ClienteCriar } from '@/types/cliente'
-import { UserRole } from '@/types'
+import { UserRole, UserCriar } from '@/types'
 
 export default function RegistrationForm() {
   const router = useRouter()
@@ -36,15 +35,15 @@ export default function RegistrationForm() {
       return
     }
 
-    const celular = `${selectedOption}${
+    const telefone = `${selectedOption}${
       (form.elements.namedItem('telefone') as HTMLInputElement).value
     }`
 
-    const novo_cliente: ClienteCriar = {
+    const novo_cliente: UserCriar = {
       name: (form.elements.namedItem('nome') as HTMLInputElement).value,
-      cellphone: celular,
+      cellphone: telefone,
       email: (form.elements.namedItem('email') as HTMLInputElement).value,
-      cpf: (form.elements.namedItem('cnpj') as HTMLInputElement).value,
+      cpf: (form.elements.namedItem('cpf') as HTMLInputElement).value,
       password: senha,
       role: UserRole.CLIENTE,
     }
@@ -113,7 +112,7 @@ export default function RegistrationForm() {
         <InputField
           label="CPF:"
           type="text"
-          name="cnpj"
+          name="cpf"
           placeholder=""
           required
         />

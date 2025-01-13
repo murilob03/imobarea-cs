@@ -10,5 +10,8 @@ export interface UserCriar {
   email: string
   cellphone: string
   password: string
+  cpf?: string
+  cnpj?: string
+  creci?: string
   role: UserRole
 }
