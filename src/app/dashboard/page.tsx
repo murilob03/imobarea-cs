@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
-import { useSession, signOut } from "next-auth/react";
+import { useSession, signOut } from 'next-auth/react'
 
 export default function Dashboard() {
-  const { data: session } = useSession();
+  const { data: session } = useSession()
 
   if (!session) {
-    return <p>Loading...</p>;
+    return <p>Loading...</p>
   }
 
   return (
@@ -16,5 +16,5 @@ export default function Dashboard() {
       <p>Email: {session.user?.email}</p>
       <button onClick={() => signOut()}>Sign Out</button>
     </div>
-  );
+  )
 }

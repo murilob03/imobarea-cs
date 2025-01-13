@@ -1,5 +1,5 @@
-export { default } from "next-auth/middleware";
+export { default } from 'next-auth/middleware'
 
 export const config = {
-  matcher: ["/dashboard/:path*"], // Protect routes under /dashboard
-};
+  matcher: ['/dashboard/:path*'], // Protect routes under /dashboard
+}

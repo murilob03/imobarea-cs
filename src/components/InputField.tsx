@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
 interface InputFieldProps {
-  label?: string; // Tornar opcional
-  type: string;
-  name: string;
-  placeholder: string;
-  required?: boolean; // Tornar opcional
+  label?: string // Tornar opcional
+  type: string
+  name: string
+  placeholder: string
+  required?: boolean // Tornar opcional
 }
 
 export default function InputField({
@@ -14,7 +14,7 @@ export default function InputField({
   name,
   placeholder,
   required,
-}:InputFieldProps) {
+}: InputFieldProps) {
   return (
     <div className="flex flex-col w-full gap-px-16 ">
       {label && <p className="font-bold">{label}</p>}
@@ -26,5 +26,5 @@ export default function InputField({
         required={required}
       />
     </div>
-  );
+  )
 }
