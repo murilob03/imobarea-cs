@@ -6,6 +6,7 @@ import { ArrowLeft } from 'lucide-react'
 import DropdownButton from '@/components/DropdownButton'
 import InputField from '@/components/InputField'
 import CustomButton from '@/components/CustomButton'
+import Link from 'next/link'
 
 export default function SignIn() {
   const [error, setError] = useState<string>('')
@@ -21,8 +22,8 @@ export default function SignIn() {
       .value
 
     const result = await signIn('credentials', {
-      cellphone: areaCode + cellphone,
-      password,
+      celular: areaCode + cellphone,
+      senha: password,
       redirect: false,
     })
 
@@ -36,9 +37,9 @@ export default function SignIn() {
   return (
     <div className="flex flex-col p-[64px_24px]">
       <div className="flex flex-col gap-px-32">
-        <a href="/">
+        <Link href="/">
           <ArrowLeft size={32} color="black"></ArrowLeft>
-        </a>
+        </Link>
         <h1 className="font-bold text-2xl">Entrar com número de celular</h1>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form

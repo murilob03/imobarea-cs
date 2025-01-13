@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 interface CustomButtonProps {
@@ -18,9 +19,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
   if (href) {
     return (
-      <a className={commonClasses} href={href}>
+      <Link className={commonClasses} href={href}>
         {text}
-      </a>
+      </Link>
     )
   }
 

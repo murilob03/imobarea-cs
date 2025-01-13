@@ -11,24 +11,21 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        cellphone: { label: 'Cellphone', type: 'text' },
-        password: { label: 'Password', type: 'password' },
+        celular: { label: 'Celular', type: 'text' },
+        senha: { label: 'Senha', type: 'password' },
       },
       async authorize(credentials: Record<string, string> | undefined) {
-        if (!credentials?.cellphone || !credentials?.password) {
+        if (!credentials?.celular || !credentials?.senha) {
           return null
         }
 
-        // Find user by cellphone
+        // Find user by celular
         const user = await prisma.user.findUnique({
-          where: { cellphone: credentials.cellphone },
+          where: { celular: credentials.celular },
         })
 
-        // Validate user and password
-        if (
-          !user ||
-          !(await bcrypt.compare(credentials.password, user.password))
-        ) {
+        // Validate user and senha
+        if (!user || !(await bcrypt.compare(credentials.senha, user.senha))) {
           return null
         }
 
@@ -38,10 +35,10 @@ export const authOptions: NextAuthOptions = {
         // Return user object with role-specific fields
         return {
           id: user.id,
-          name: user.name,
+          nome: user.nome,
           email: user.email,
           role,
-          cellphone: user.cellphone,
+          celular: user.celular,
           cpf: role !== UserRole.IMOBILIARIA ? user.cpf : null,
           cnpj: role === UserRole.IMOBILIARIA ? user.cnpj : null,
           creci: role === UserRole.AGENTE ? user.creci : null,

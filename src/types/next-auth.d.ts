@@ -1,4 +1,4 @@
-import NextAuth, { DefaultSession, DefaultUser } from 'next-auth'
+// import NextAuth, { DefaultSession, DefaultUser } from 'next-auth'
 import { UserRole } from './index'
 
 // Extend default User type
@@ -6,7 +6,7 @@ declare module 'next-auth' {
   interface User extends DefaultUser {
     id: string
     role: UserRole
-    cellphone: string
+    celular: string
     cpf: string | null
     cnpj: string | null
     creci: string | null
@@ -21,7 +21,7 @@ declare module 'next-auth/jwt' {
   interface JWT {
     id: string
     role: string
-    cellphone: string
+    celular: string
     cpf: string | null
     cnpj: string | null
     creci: string | null
