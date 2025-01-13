@@ -37,7 +37,7 @@ export default function RegistrationForm() {
           <InputField
             label=""
             type="tel"
-            name="telefone"
+            name="cellphone"
             placeholder=""
             required
           />
@@ -66,14 +66,14 @@ export default function RegistrationForm() {
         <InputField
           label="Senha:"
           type="password"
-          name="senha"
+          name="password"
           placeholder=""
           required
         />
         <InputField
           label="Confirme a sua senha:"
           type="password"
-          name="confirmSenha"
+          name="password"
           placeholder=""
           required
         />
