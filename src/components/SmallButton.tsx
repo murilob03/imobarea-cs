@@ -13,7 +13,7 @@ const SmallButton: React.FC<SmallButtonProps> = ({ text, onClick }) => {
     if (onClick) onClick(event); // Chama a função onClick, se existir
   };
 
-  const commonClasses = `flex justify-center items-center text-[12px] rounded-full transition-all duration-300
+  const commonClasses = `flex justify-center items-center text-xs rounded-full transition-all duration-300 
     ${isSelected ? "bg-marrom text-white" : "bg-transparent text-black border border-black"}`;
 
   return (

@@ -5,7 +5,7 @@ const Footer = () => {
   const [active, setActive] = useState('Início') // Estado para rastrear a tela ativa
 
   return (
-    <div className="flex justify-between items-center w-full h-[67px] px-4">
+    <div className="flex justify-between items-center w-full h-[67px] px-4 mt-auto">
       {/* Início */}
       <a
         href="/usuario/inicio"
