@@ -52,7 +52,14 @@ export default function RegistrationForm() {
         <InputField
           label="CPF:"
           type="text"
-          name="cpf"
+          name="cnpj"
+          placeholder=""
+          required
+        />
+        <InputField
+          label="CRECI:"
+          type="text"
+          name="creci"
           placeholder=""
           required
         />
