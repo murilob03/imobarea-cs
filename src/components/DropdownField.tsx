@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react"; // Importando o ícone de seta para 
 interface DropdownFieldProps {
   label?: string;
   name: string;
-  options: number[]; // Lista de opções como números (ex: 1, 2, 3, etc)
+  options: (string | number)[]; // Lista de opções pode conter strings ou números
   required?: boolean;
   className?: string; // Permitir estilos personalizados
   placeholder?: string; // Placeholder dinâmico
@@ -18,10 +18,12 @@ export default function DropdownField({
   className = "",
   placeholder = "Selecione uma opção", // Valor padrão para o placeholder
 }: DropdownFieldProps) {
-  const [selectedValue, setSelectedValue] = useState<number | null>(null);
+  const [selectedValue, setSelectedValue] = useState<string | number | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(Number(event.target.value));
+    const value = event.target.value;
+    // Verificar se o valor pode ser convertido para número ou manter como string
+    setSelectedValue(isNaN(Number(value)) ? value : Number(value));
   };
 
   return (
@@ -39,7 +41,7 @@ export default function DropdownField({
             {placeholder} {/* Usando o placeholder dinâmico */}
           </option>
           {options.map((option) => (
-            <option key={option} value={option}>
+            <option key={option.toString()} value={option}>
               {option}
             </option>
           ))}
