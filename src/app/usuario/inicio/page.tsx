@@ -17,20 +17,6 @@ export default function Home() {
       title: "Noah",
       location: "Tiradentes - zona 1, Maringá - PR",
       rating: 4.0,
-      image: "https://via.placeholder.com/342x140", // Substituir pela URL real da imagem
-    },
-    {
-      id: 2,
-      title: "Aurora",
-      location: "Zona 2, Maringá - PR",
-      rating: 4.5,
-      image: "https://via.placeholder.com/342x140",
-    },
-    {
-      id: 3,
-      title: "Solaris",
-      location: "Centro, Curitiba - PR",
-      rating: 4.8,
       image: "https://via.placeholder.com/342x140",
     },
     // Adicione mais imóveis conforme necessário
@@ -67,15 +53,17 @@ export default function Home() {
 
           {/* Div de imóveis populares com margem acima e abaixo */}
           <div className="flex flex-wrap gap-4 overflow-y-auto max-h-[calc(100vh-350px)] w-full my-6">
-            {imoveis.map((imovel) => (
-              <ShowImovel
-                key={imovel.id}
-                title={imovel.title}
-                location={imovel.location}
-                rating={imovel.rating}
-                image={imovel.image}
-              />
-            ))}
+          {/* <ShowImovel
+            title={imoveis[0].title}
+            location={imoveis[0].location}
+            rating={imoveis[0].rating}
+            image={imoveis[0].image}
+            // exemplo
+            area = {100} 
+            garage={2} 
+            bedrooms={3} 
+            builder="Construtora XYZ" 
+          /> */}
           </div>
         </div>
         <Footer />
