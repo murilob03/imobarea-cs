@@ -53,17 +53,16 @@ export default function Home() {
 
           {/* Div de imóveis populares com margem acima e abaixo */}
           <div className="flex flex-wrap gap-4 overflow-y-auto max-h-[calc(100vh-350px)] w-full my-6">
-          {/* <ShowImovel
+          {/* { <ShowImovel
             title={imoveis[0].title}
             location={imoveis[0].location}
-            rating={imoveis[0].rating}
             image={imoveis[0].image}
             // exemplo
             area = {100} 
             garage={2} 
             bedrooms={3} 
             builder="Construtora XYZ" 
-          /> */}
+          />} */}
           </div>
         </div>
         <Footer />

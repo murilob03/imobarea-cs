@@ -4,7 +4,6 @@ import { Star, Heart, MapPin } from "lucide-react";
 interface ShowImovelProps {
   title: string;
   location: string;
-  rating: number;
   image: string;
   area: number;
   garage: number;
@@ -15,7 +14,6 @@ interface ShowImovelProps {
 const ShowImovel: React.FC<ShowImovelProps> = ({
   title,
   location,
-  rating,
   image,
   area,
   garage,
@@ -41,8 +39,6 @@ const ShowImovel: React.FC<ShowImovelProps> = ({
         <div className="flex justify-between items-center">
           <h3 className="text-base font-bold truncate">{title}</h3>
           <div className="flex items-center">
-            <Star className="text-yellow-400" />
-            <span className="ml-1 text-sm">{rating.toFixed(1)}</span>
           </div>
         </div>
         <div className="flex items-center text-sm mt-1">

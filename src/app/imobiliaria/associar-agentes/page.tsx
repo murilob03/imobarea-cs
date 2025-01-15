@@ -15,8 +15,7 @@ export default function AccountType() {
             ASSOCIAR AGENTES IMOBILIÁRIOS...
           </h1>
           <p className="text-base mb-[32px]">
-            Procure seus agentes imobiliários pelo &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp; &nbsp; número CRECI:
+            Procure seus agentes imobiliários pelo <br/> número CRECI:
           </p>
           <div className="flex items-center relative">
             <InputField
