@@ -18,4 +18,9 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-inter, sans-serif);
+  width: 390px;
+  min-height: 100vh;
+  margin: 0 auto;
+  overflow-x: hidden;
+  background: var(--background);
 }

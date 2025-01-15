@@ -8,7 +8,7 @@ interface CustomButtonProps {
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({ href, text, onClick, type = "button" }) => {
-  const commonClasses = "flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] bg-marrom rounded-full font-bold text-white";
+  const commonClasses = "flex w-full justify-center items-center gap-2.5 self-stretch p-[26px_32px] bg-marrom rounded-full font-bold text-white";
 
   if (href) {
     return (
