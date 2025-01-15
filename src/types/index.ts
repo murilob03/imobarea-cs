@@ -15,3 +15,15 @@ export interface UserCriar {
   creci?: string
   role: UserRole
 }
+
+export interface UserLer {
+    id: string
+    name: string
+    email: string
+    cellphone: string
+    role: UserRole
+    cpf?: string | null
+    cnpj?: string | null
+    creci?: string | null
+    createdAt: Date
+}

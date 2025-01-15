@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/db'
-import { ClienteLer } from '@/types/cliente'
+import { ClienteLer } from '@/types/usuarios'
 
 // Handle GET requests
 export async function GET() {
@@ -9,11 +9,11 @@ export async function GET() {
       where: { role: 'CLIENTE' },
         select: {
             id: true,
-            nome: true,
+            name: true,
             email: true,
             cpf: true,
-            celular: true,
-            dataCriacao: true,
+            cellphone: true,
+            createdAt: true,
         },
     })
     return NextResponse.json(clientes, { status: 200 })

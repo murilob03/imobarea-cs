@@ -12,13 +12,42 @@ datasource db {
 
 model User {
     id        String   @id @default(uuid())
-    role      String   @default("USER") // USER, ADMIN, IMOBILIARIA, AGENTE
     name      String
+    email     String
     cellphone String   @unique
-    email     String   @unique
     password  String
-    cpf       String? // Nullable (for common/admin/agente only)
-    cnpj      String? // Nullable (for imobiliaria only)
-    creci     String? // Nullable (for agente only)
+    role      String // CLIENTE, IMOBILIARIA, AGENTE or ADMIN
     createdAt DateTime @default(now())
+
+    Cliente     Cliente?
+    Agente      Agente?
+    Imobiliaria Imobiliaria?
+}
+
+model Cliente {
+    id     String @id @default(uuid())
+    userId String @unique
+    cpf    String
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Agente {
+    id            String  @id @default(uuid())
+    userId        String  @unique
+    cpf           String
+    creci         String
+    imobiliariaId String? // Optional, as not all agents are tied to an Imobiliaria
+
+    user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+    imobiliaria Imobiliaria? @relation(fields: [imobiliariaId], references: [id])
+}
+
+model Imobiliaria {
+    id     String @id @default(uuid())
+    userId String @unique
+    cnpj   String
+
+    user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    agentes Agente[] // One-to-many relationship with Agente
 }
