@@ -7,14 +7,14 @@ export async function GET() {
   try {
     const clientes: ClienteLer[] = await prisma.user.findMany({
       where: { role: 'CLIENTE' },
-        select: {
-            id: true,
-            name: true,
-            email: true,
-            cpf: true,
-            cellphone: true,
-            createdAt: true,
-        },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        cpf: true,
+        cellphone: true,
+        createdAt: true,
+      },
     })
     return NextResponse.json(clientes, { status: 200 })
   } catch (error) {

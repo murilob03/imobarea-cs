@@ -1,15 +1,15 @@
-import React from "react";
-import { Star, Heart, MapPin } from "lucide-react";
+import React from 'react'
+import { Star, Heart, MapPin } from 'lucide-react'
 
 interface ShowImovelProps {
-  title: string;
-  location: string;
-  rating: number;
-  image: string;
-  area: number;
-  garage: number;
-  bedrooms: number;
-  builder: string;
+  title: string
+  location: string
+  rating: number
+  image: string
+  area: number
+  garage: number
+  bedrooms: number
+  builder: string
 }
 
 const ShowImovel: React.FC<ShowImovelProps> = ({
@@ -26,11 +26,7 @@ const ShowImovel: React.FC<ShowImovelProps> = ({
     <div className="w-[342px] h-[275px] rounded-3xl overflow-hidden relative bg-white shadow-lg">
       {/* Imagem do imóvel */}
       <div className="relative w-full h-[235px]">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
+        <img src={image} alt={title} className="w-full h-full object-cover" />
         {/* Ícone de favorito */}
         <div className="absolute top-2 right-2 bg-white rounded-full p-1 shadow">
           <Heart size={16} className="text-gray-600" />
@@ -51,7 +47,7 @@ const ShowImovel: React.FC<ShowImovelProps> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ShowImovel;
+export default ShowImovel

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { ChevronDown } from "lucide-react"; // Importando o ícone de seta para baixo
+import React, { useState } from 'react'
+import { ChevronDown } from 'lucide-react' // Importando o ícone de seta para baixo
 
 interface DropdownFieldProps {
-  label?: string;
-  name: string;
-  options: (string | number)[]; // Lista de opções pode conter strings ou números
-  required?: boolean;
-  className?: string; // Permitir estilos personalizados
-  placeholder?: string; // Placeholder dinâmico
+  label?: string
+  name: string
+  options: (string | number)[] // Lista de opções pode conter strings ou números
+  required?: boolean
+  className?: string // Permitir estilos personalizados
+  placeholder?: string // Placeholder dinâmico
 }
 
 export default function DropdownField({
@@ -15,16 +15,18 @@ export default function DropdownField({
   name,
   options,
   required,
-  className = "",
-  placeholder = "Selecione uma opção", // Valor padrão para o placeholder
+  className = '',
+  placeholder = 'Selecione uma opção', // Valor padrão para o placeholder
 }: DropdownFieldProps) {
-  const [selectedValue, setSelectedValue] = useState<string | number | null>(null);
+  const [selectedValue, setSelectedValue] = useState<string | number | null>(
+    null
+  )
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
+    const value = event.target.value
     // Verificar se o valor pode ser convertido para número ou manter como string
-    setSelectedValue(isNaN(Number(value)) ? value : Number(value));
-  };
+    setSelectedValue(isNaN(Number(value)) ? value : Number(value))
+  }
 
   return (
     <div className="flex flex-col w-full gap-2">
@@ -33,7 +35,7 @@ export default function DropdownField({
         <select
           className={`flex border w-full bg-bege border-solid border-black rounded-2xl p-[18px_8px] pr-10 ${className} appearance-none`}
           name={name}
-          value={selectedValue || ""}
+          value={selectedValue || ''}
           onChange={handleChange}
           required={required}
         >
@@ -53,5 +55,5 @@ export default function DropdownField({
         />
       </div>
     </div>
-  );
+  )
 }

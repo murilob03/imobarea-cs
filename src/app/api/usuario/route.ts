@@ -50,7 +50,6 @@ export async function GET(req: Request) {
     }))
 
     return NextResponse.json(usuarios_ler)
-
   } catch (error) {
     console.error(error)
     return NextResponse.json(

@@ -15,7 +15,7 @@ const AgenteCard = ({ agente }: AgenteCardProps) => {
         height={64}
         className="w-16 h-16 rounded-full"
       />
-      
+
       <div className="flex flex-col">
         <p className="text-sm font-bold text-black">{agente.name}</p>
         <p className="text-sm text-black">CRECI: {agente.creci}</p>

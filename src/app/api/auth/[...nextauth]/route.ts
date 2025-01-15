@@ -39,9 +39,9 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           role: user.role as UserRole,
           cellphone: user.cellphone,
-        //   cpf: role !== UserRole.IMOBILIARIA ? user.cpf : null,
-        //   cnpj: role === UserRole.IMOBILIARIA ? user.cnpj : null,
-        //   creci: role === UserRole.AGENTE ? user.creci : null,
+          //   cpf: role !== UserRole.IMOBILIARIA ? user.cpf : null,
+          //   cnpj: role === UserRole.IMOBILIARIA ? user.cnpj : null,
+          //   creci: role === UserRole.AGENTE ? user.creci : null,
         }
       },
     }),
