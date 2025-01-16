@@ -4,7 +4,7 @@ import CustomButton from '@/components/CustomButton'
 import InputField from '@/components/InputField'
 import { Search } from 'lucide-react'
 
-export default function AssociateAgent() {
+export default function AssociarAgente() {
   const handleContinue = () => {}
 
   return (
