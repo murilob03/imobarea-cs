@@ -78,7 +78,7 @@ export default function Home() {
             /> */}
           </div>
         </div>
-        <Footer />
+        <Footer activeState='Buscar'/>
       </div>
     </div>
   );

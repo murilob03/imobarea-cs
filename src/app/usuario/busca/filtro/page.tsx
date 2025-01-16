@@ -53,7 +53,7 @@ export default function Filter() {
                     />
                 </div>
             </div>
-            <Footer/>
+            <Footer activeState="Buscar"/>
         </div>
     )
 }
