@@ -4,7 +4,7 @@ import CustomButton from '@/components/CustomButton'
 import InputField from '@/components/InputField'
 import { Search } from 'lucide-react'
 
-export default function AccountType() {
+export default function AssociateAgent() {
   const handleContinue = () => {}
 
   return (

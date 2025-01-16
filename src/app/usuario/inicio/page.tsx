@@ -7,7 +7,7 @@ import { LuSearch } from 'react-icons/lu'
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
-export default function Home() {
+export default function UserHome() {
   const router = useRouter();
 
   // Dados de exemplo dos imóveis

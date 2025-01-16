@@ -2,13 +2,12 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'
-import SmallButton from '@/components/SmallButton'
 import InputField from '@/components/InputField'
 import { LuSearch, LuCircleX, LuSlidersHorizontal, LuArrowLeft } from 'react-icons/lu';
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
-export default function Home() {
+export default function Search() {
   const router = useRouter();
 
   // Estado para armazenar o valor do input
