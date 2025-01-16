@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import CustomButton from '@/components/CustomButton'
 import { Star } from 'lucide-react'
@@ -43,7 +43,7 @@ export default function PerfilImobiliaria() {
       <CustomButton text="Visualizar imóveis" href="/" />
 
       {/* Rodapé */}
-      <Footer />
+      <Footer activeState='Perfil'/>
     </div>
   )
 }
