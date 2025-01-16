@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation'
 import SmallButton from '@/components/SmallButton'
 import InputField from '@/components/InputField'
-import { LuSearch, LuCircleX, LuSlidersHorizontal, LuArrowLeft } from 'react-icons/lu';
+import { ArrowLeft } from 'lucide-react';
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
@@ -37,7 +37,7 @@ export default function Favorites() {
         <div>
           {/* Cabeçalho com seta e título */}
           <h1 className="flex items-center text-2xl font-bold mb-[48px] gap-4">
-            <LuArrowLeft size={24} className="cursor-pointer" onClick={() => router.back()} />
+            <ArrowLeft size={24} className="cursor-pointer" onClick={() => router.back()} />
             Favoritos
           </h1>
           

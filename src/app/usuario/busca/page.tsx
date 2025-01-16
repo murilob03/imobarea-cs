@@ -1,34 +1,34 @@
 'use client'
 
-import { useState } from 'react';
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import InputField from '@/components/InputField'
-import { LuSearch, LuCircleX, LuSlidersHorizontal, LuArrowLeft } from 'react-icons/lu';
+import { Search, CircleX, SlidersHorizontal, ArrowLeft } from 'lucide-react'
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
-export default function Search() {
-  const router = useRouter();
+export default function Busca() {
+  const router = useRouter()
 
   // Estado para armazenar o valor do input
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState('')
 
   // Dados de exemplo dos imóveis
   const imoveis = [
     {
       id: 1,
-      title: "Noah",
-      location: "Tiradentes - zona 1, Maringá - PR",
+      title: 'Noah',
+      location: 'Tiradentes - zona 1, Maringá - PR',
       rating: 4.0,
-      image: "https://via.placeholder.com/342x140",
+      image: 'https://via.placeholder.com/342x140',
     },
     // Adicione mais imóveis conforme necessário
-  ];
+  ]
 
   // Função para limpar o campo de entrada
   const clearInput = () => {
-    setInputValue('');
-  };
+    setInputValue('')
+  }
 
   return (
     <div className="flex h-screen flex-col items-center bg-bege">
@@ -36,7 +36,11 @@ export default function Search() {
         <div>
           {/* Cabeçalho com seta e título */}
           <h1 className="flex items-center text-2xl font-bold mb-[48px] gap-4">
-            <LuArrowLeft size={24} className="cursor-pointer" onClick={() => router.back()} />
+            <ArrowLeft
+              size={24}
+              className="cursor-pointer"
+              onClick={() => router.back()}
+            />
             Busca
           </h1>
 
@@ -52,21 +56,21 @@ export default function Search() {
               value={inputValue} // Controla o valor do input pelo estado
               onChange={(e) => setInputValue(e.target.value)} // Atualiza o estado quando o usuário digita
             />
-            <LuSearch size={24} className="absolute left-6" />
-            <LuCircleX
+            <Search size={24} className="absolute left-6" />
+            <CircleX
               size={24}
               className="absolute right-6 cursor-pointer"
               onClick={clearInput} // Limpa o campo ao clicar
             />
           </div>
-          
+
           {/* Botão Filtrar */}
           <div className="flex justify-end mt-4">
             <button
               className="flex items-center gap-2 text-base font-semibold px-4 py-2"
               onClick={() => router.push('/usuario/busca/filtro')}
             >
-              <LuSlidersHorizontal size={18} />
+              <SlidersHorizontal size={18} />
               filtrar
             </button>
           </div>
@@ -86,8 +90,8 @@ export default function Search() {
             /> */}
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </div>
-  );
+  )
 }

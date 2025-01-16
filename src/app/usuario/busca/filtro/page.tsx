@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import { LuX } from "react-icons/lu";
+import { X } from "lucide-react";
 import DropdownField from "@/components/DropdownField";
 import Footer from "@/components/Footer";
 
@@ -39,7 +39,7 @@ export default function Filter() {
         <div className="flex h-screen flex-col items-center bg-bege">
             <div className="p-[64px_24px] flex flex-col w-full justify-between">
                 <div className="flex justify-end w-full mb-[16px]">
-                    <LuX size={24} className="" />
+                    <X size={24} className="" />
                 </div>
                 <div className="flex justify-between items-center w-full">
                     <h1 className="text-2xl font-bold">Filtrar por</h1>

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import SmallButton from '@/components/SmallButton'
 import InputField from '@/components/InputField'
-import { LuSearch } from 'react-icons/lu'
+import { Search } from 'lucide-react'
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
@@ -39,7 +39,7 @@ export default function UserHome() {
               required
               className="pl-14 placeholder:text-black text-base"
             />
-            <LuSearch size={24} className="absolute left-6" />
+            <Search size={24} className="absolute left-6" />
           </div>
           <div className="mt-[32px] flex gap-4">
             {/* Botões dinâmicos */}
