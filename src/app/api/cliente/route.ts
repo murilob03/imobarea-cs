@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import prisma from '@/db'
 import { ClienteLer } from '@/types/usuarios'
 
+// TODO isso daqui ta errado, tem que mudar
 // Handle GET requests
 export async function GET() {
   try {

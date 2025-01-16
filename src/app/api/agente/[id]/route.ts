@@ -1,6 +1,8 @@
 import prisma from '@/db'
 import { NextResponse } from 'next/server'
 
+// TODO provavelmente vai ter que mudar o endpoint
+// Rota para associar um agente a uma imobiliária
 export async function POST(
   req: Request,
   { params }: { params: Promise<{ id: string }> }

@@ -2,6 +2,7 @@ import prisma from '@/db'
 import { AgenteLer } from '@/types/usuarios'
 import { NextResponse } from 'next/server'
 
+// Rota para buscar um agente pelo seu CRECI
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
   try {
