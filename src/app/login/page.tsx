@@ -64,6 +64,7 @@ export default function SignIn() {
                 <DropdownButton
                   selectedOption={areaCode}
                   setSelectedOption={setAreaCode}
+                  type='DDD'
                 ></DropdownButton>
                 <InputField
                   label=""

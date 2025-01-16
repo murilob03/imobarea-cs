@@ -94,6 +94,7 @@ export default function RegistrationForm() {
           <DropdownButton
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
+            type="DDD"
           />
           <InputField
             label=""

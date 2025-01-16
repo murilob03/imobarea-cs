@@ -3,14 +3,17 @@
 import React, { useState } from 'react'
 import InputField from '@/components/InputField'
 import DropdownButton from '@/components/DropdownButton'
+import DropdownField from '@/components/DropdownField'
 import CustomButton from '@/components/CustomButton'
+import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { UserRole, UserCriar } from '@/types'
+import ImageField from '@/components/ImageField'
 
 export default function RegistrationForm() {
   const router = useRouter()
 
-  const [selectedOption, setSelectedOption] = useState('44')
+  const [selectedOption, setSelectedOption] = useState('PR')
   const [isChecked, setIsChecked] = useState(false)
 
   const toggleCheckbox = () => setIsChecked(!isChecked)
@@ -72,10 +75,14 @@ export default function RegistrationForm() {
   return (
     <div className="flex flex-col items-center bg-[#F6F3EC] w-[390px] h-[1147px] mx-auto px-6 py-4">
       <div className="text-left mt-8 mb-6 w-full">
-        <h1 className="text-2xl font-bold mb-[48px]">PRIMEIROS PASSOS...</h1>
-        <p className="text-base mt-2 ">
-          Crie sua conta de maneira rápida e fácil!
-        </p>
+        <h1 className="flex items-center text-2xl font-bold mb-[48px] gap-4">
+          <ArrowLeft
+            size={24}
+            className="cursor-pointer"
+            onClick={() => router.back()}
+          />
+          Novo imóvel
+        </h1>
       </div>
 
       <form
@@ -83,70 +90,87 @@ export default function RegistrationForm() {
         onSubmit={handleSubmit}
       >
         <InputField
-          label="Razão social:"
+          label="Nome do Imóvel:"
           type="text"
           name="name"
           placeholder=""
           required
         />
-        <label className="font-semibold text-base">Número de celular:</label>
-        <div className="flex gap-4 items-center">
-          <DropdownButton
-            selectedOption={selectedOption}
-            setSelectedOption={setSelectedOption}
-            type='DDD'
-          />
-          <InputField
-            label=""
-            type="tel"
-            name="cellphone"
-            placeholder=""
-            required
-          />
-        </div>
         <InputField
-          label="E-mail:"
-          type="email"
-          name="email"
-          placeholder=""
-          required
-        />
-        <InputField
-          label="CNPJ:"
+          label="Área privada:"
           type="text"
-          name="cnpj"
+          name="area"
+          placeholder=""
+          required
+        />
+        <label className="font-semibold text-base">N° de quartos: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N° de vagas de garagem:</label>
+                <div className="flex gap-4 items-center">
+                <InputField
+                    className='w-[120px] h-[56px]'
+                    label=""
+                    type="number"
+                    name="quartos"
+                    placeholder=""
+                    required
+                  />
+                  <InputField
+                  className='w-[206px] h-[56px]'
+                    label=""
+                    type="number"
+                    name="vagas"
+                    placeholder=""
+                    required
+                  />
+                </div>
+        <InputField
+          label="Rua:"
+          type="text"
+          name="rua"
           placeholder=""
           required
         />
         <InputField
-          label="Senha:"
-          type="password"
-          name="password"
+          label="Bairro:"
+          type="text"
+          name="bairro"
           placeholder=""
           required
         />
         <InputField
-          label="Confirme a sua senha:"
-          type="password"
-          name="confirmPassword"
+          label="Complemento:"
+          type="text"
+          name="complemento"
           placeholder=""
           required
         />
-
-        <div className="flex items-center mt-[32px] gap-[25px]">
-          <input
-            type="checkbox"
-            className="appearance-none h-[30px] w-[30px] bg-[#E9D9C9] rounded-lg checked:bg-[#8b5e3cd7] focus:outline-none cursor-pointer flex-shrink-0"
-            checked={isChecked}
-            onChange={toggleCheckbox}
-          />
-          <label className="font-semibold text-base leading-none">
-            Li e concordo com os Termos e Condições de Uso.
-          </label>
-        </div>
-
+        <label className="font-semibold text-base">Estado: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cidade:</label>
+                <div className="flex gap-4 items-center">
+                <DropdownButton
+                selectedOption={selectedOption}
+                setSelectedOption={setSelectedOption}
+                type="Estado" // Define o tipo como DDD
+                />
+                  <InputField
+                    label=""
+                    type="text"
+                    name="cidade"
+                    placeholder=""
+                    required
+                  />
+                </div>
+                <DropdownField
+          className='font-bold'
+          name="tipo-movel"
+          options={['Apartamentos', 'Casa', 'Comercial']}
+          placeholder="Tipo Imóvel"
+        />
+        <ImageField
+            className='font-bold'
+            name="add-image"
+            placeholder="Adicione fotos do imóvel"
+        />
         <div className="mt-4">
-          <CustomButton text="Continuar" type="submit" />
+          <CustomButton text="Concluir" type="submit" />
         </div>
       </form>
     </div>
