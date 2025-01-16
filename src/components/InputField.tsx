@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 interface InputFieldProps {
   label?: string;
@@ -34,5 +34,5 @@ export default function InputField({
         onChange={onChange} // Adiciona o evento onChange
       />
     </div>
-  );
+  )
 }

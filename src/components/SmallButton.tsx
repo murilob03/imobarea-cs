@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 interface SmallButtonProps {
-  text: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>; // Função opcional de clique
+  text: string
+  onClick?: React.MouseEventHandler<HTMLButtonElement> // Função opcional de clique
 }
 
 const SmallButton: React.FC<SmallButtonProps> = ({ text, onClick }) => {
-  const [isSelected, setIsSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(false)
 
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setIsSelected((prev) => !prev); // Alterna o estado de seleção
-    if (onClick) onClick(event); // Chama a função onClick, se existir
-  };
+    setIsSelected((prev) => !prev) // Alterna o estado de seleção
+    if (onClick) onClick(event) // Chama a função onClick, se existir
+  }
 
   const commonClasses = `flex justify-center items-center text-xs rounded-full transition-all duration-300 
-    ${isSelected ? "bg-marrom text-white" : "bg-transparent text-black border border-black"}`;
+    ${isSelected ? 'bg-marrom text-white' : 'bg-transparent text-black border border-black'}`
 
   return (
     <button
@@ -23,7 +23,7 @@ const SmallButton: React.FC<SmallButtonProps> = ({ text, onClick }) => {
     >
       {text}
     </button>
-  );
-};
+  )
+}
 
-export default SmallButton;
+export default SmallButton

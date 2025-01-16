@@ -1,20 +1,23 @@
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { useState } from 'react'
+import { ChevronDown } from 'lucide-react'
 
 interface DropdownButtonProps {
-  selectedOption: string;
-  setSelectedOption: (option: string) => void;
+  selectedOption: string
+  setSelectedOption: (option: string) => void
 }
 
-export default function DropdownButton({ selectedOption, setSelectedOption }: DropdownButtonProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function DropdownButton({
+  selectedOption,
+  setSelectedOption,
+}: DropdownButtonProps) {
+  const [isOpen, setIsOpen] = useState(false)
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleDropdown = () => setIsOpen(!isOpen)
 
   const handleOptionSelect = (option: string) => {
-    setSelectedOption(option); // Atualiza o valor selecionado
-    setIsOpen(false); // Fecha o dropdown
-  };
+    setSelectedOption(option) // Atualiza o valor selecionado
+    setIsOpen(false) // Fecha o dropdown
+  }
 
   return (
     <div className="relative inline-block text-left w-[71px] h-[60px]">
@@ -22,7 +25,7 @@ export default function DropdownButton({ selectedOption, setSelectedOption }: Dr
       <div className="flex items-center bg-marrom_claro p-[18px_8px] rounded-2xl font-bold">
         <button onClick={toggleDropdown} className="flex">
           {'+' + selectedOption}
-          <ChevronDown className="text-marrom"/>
+          <ChevronDown className="text-marrom" />
         </button>
       </div>
       {/* Menu dropdown */}
@@ -32,7 +35,7 @@ export default function DropdownButton({ selectedOption, setSelectedOption }: Dr
             <li>
               <button
                 className="w-auto text-center px-4 py-2 text-black hover:bg-gray-200"
-                onClick={() => handleOptionSelect("44")}
+                onClick={() => handleOptionSelect('44')}
               >
                 +44
               </button>
@@ -40,7 +43,7 @@ export default function DropdownButton({ selectedOption, setSelectedOption }: Dr
             <li>
               <button
                 className="w-auto text-center px-4 py-2 text-black hover:bg-gray-200"
-                onClick={() => handleOptionSelect("11")}
+                onClick={() => handleOptionSelect('11')}
               >
                 +11
               </button>
@@ -48,7 +51,7 @@ export default function DropdownButton({ selectedOption, setSelectedOption }: Dr
             <li>
               <button
                 className="w-auto text-center px-4 py-2 text-black hover:bg-gray-200"
-                onClick={() => handleOptionSelect("43")}
+                onClick={() => handleOptionSelect('43')}
               >
                 +43
               </button>
@@ -57,5 +60,5 @@ export default function DropdownButton({ selectedOption, setSelectedOption }: Dr
         </div>
       )}
     </div>
-  );
+  )
 }

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import SmallButton from '@/components/SmallButton'
 import InputField from '@/components/InputField'
 import { Search } from 'lucide-react'
+import { Search } from 'lucide-react'
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
@@ -14,13 +15,12 @@ export default function UserHome() {
   const imoveis = [
     {
       id: 1,
-      title: "Noah",
-      location: "Tiradentes - zona 1, Maringá - PR",
-      rating: 4.0,
-      image: "https://via.placeholder.com/342x140",
+      title: 'Noah',
+      location: 'Tiradentes - zona 1, Maringá - PR',
+      image: 'https://via.placeholder.com/342x140',
     },
     // Adicione mais imóveis conforme necessário
-  ];
+  ]
 
   return (
     <div className="flex h-screen flex-col items-center bg-bege">
@@ -47,13 +47,12 @@ export default function UserHome() {
             <SmallButton text="Casas" />
             <SmallButton text="Comercial" />
           </div>
-          <h1 className="text-2xl font-bold mt-[32px] mb-[24px]">
-            Populares
-          </h1>
+          <h1 className="text-2xl font-bold mt-[32px] mb-[24px]">Populares</h1>
+          <h1 className="text-2xl font-bold mt-[32px] mb-[24px]">Populares</h1>
 
           {/* Div de imóveis populares com margem acima e abaixo */}
           <div className="flex flex-wrap gap-4 overflow-y-auto max-h-[calc(100vh-350px)] w-full my-6">
-          {/* { <ShowImovel
+            {/* <ShowImovel
             title={imoveis[0].title}
             location={imoveis[0].location}
             image={imoveis[0].image}
@@ -65,8 +64,8 @@ export default function UserHome() {
           />} */}
           </div>
         </div>
-        <Footer/>
+        <Footer activeState="Início" />
       </div>
     </div>
-  );
+  )
 }

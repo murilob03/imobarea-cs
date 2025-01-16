@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background: #F6F3EC;
+  --background: #f6f3ec;
   --foreground: #000;
 }
 
@@ -17,10 +17,14 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-inter, sans-serif);
+  font-family: 'Inter', sans-serif;
   width: 390px;
   min-height: 100vh;
   margin: 0 auto;
   overflow-x: hidden;
-  background: var(--background);
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
 }

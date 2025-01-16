@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ChevronDown } from "lucide-react"; // Importando o ícone de seta para baixo
+import React, { useState } from 'react'
+import { ChevronDown } from 'lucide-react' // Importando o ícone de seta para baixo
 
 interface DropdownFieldProps {
   label?: string;
@@ -65,5 +65,5 @@ export default function DropdownField({
         />
       </div>
     </div>
-  );
+  )
 }

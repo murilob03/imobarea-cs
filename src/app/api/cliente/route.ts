@@ -1,20 +1,21 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/db'
-import { ClienteLer } from '@/types/cliente'
+import { ClienteLer } from '@/types/usuarios'
 
+// TODO isso daqui ta errado, tem que mudar
 // Handle GET requests
 export async function GET() {
   try {
     const clientes: ClienteLer[] = await prisma.user.findMany({
       where: { role: 'CLIENTE' },
-        select: {
-            id: true,
-            nome: true,
-            email: true,
-            cpf: true,
-            celular: true,
-            dataCriacao: true,
-        },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        cpf: true,
+        cellphone: true,
+        createdAt: true,
+      },
     })
     return NextResponse.json(clientes, { status: 200 })
   } catch (error) {
