@@ -3,15 +3,16 @@
 import AgenteCard from '@/components/AgenteCard'
 import CustomButton from '@/components/CustomButton'
 import InputField from '@/components/InputField'
-import SmallButton from '@/components/SmallButton'
 import { UserRole } from '@/types'
 import { AgenteLer } from '@/types/usuarios'
-import { Search, User } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function AssociarAgente() {
   const { data: session } = useSession()
+  const router = useRouter()
 
   const [agente, setAgente] = useState<AgenteLer | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -28,7 +29,7 @@ export default function AssociarAgente() {
   }
 
   const handleContinue = async () => {
-    // router.push('/imobiliaria/associar-agentes/sucesso')
+    router.push('/dashboard') // TODO ver se vai ser isso mesmo
   }
 
   const handleSearch = async () => {
@@ -40,7 +41,7 @@ export default function AssociarAgente() {
     ) as HTMLInputElement
 
     if (!creciInput) {
-      setErrorMessage('Input field not found.')
+      setErrorMessage('Forneça um número CRECI válido.')
       return
     }
 
@@ -50,6 +51,11 @@ export default function AssociarAgente() {
       if (!creci) throw new Error('Por favor, insira um número CRECI válido.')
 
       const response = await fetch(`/api/agente?creci=${creci}`)
+      if (response.status === 404) {
+        setAgente(null)
+        setErrorMessage('Agente não encontrado.')
+        return
+      }
       if (!response.ok) throw new Error('Erro ao buscar o agente.')
 
       const agenteFetched = await response.json()
@@ -66,7 +72,6 @@ export default function AssociarAgente() {
 
   const handleAddAgente = async () => {
     if (!agente) {
-      setErrorMessage('Por favor, selecione um agente.')
       return
     }
 
@@ -93,6 +98,61 @@ export default function AssociarAgente() {
     }
   }
 
+  const SearchResults = ({
+    agente,
+    session,
+    hasSearched,
+    handleAddAgente,
+  }: {
+    agente: AgenteLer | null
+    session: any
+    hasSearched: boolean
+    handleAddAgente: () => void
+  }) => {
+    if (errorMessage) {
+      return <p className="text-red-500 mt-[16px]">{errorMessage}</p>
+    }
+
+    if (!hasSearched) return null
+
+    if (!agente) {
+      return (
+        <p className="text-red-500 mt-[16px]">
+          {errorMessage || 'Nenhum agente encontrado.'}
+        </p>
+      )
+    }
+
+    if (agente.imobiliariaId) {
+      if (agente.imobiliariaId === session.user.id) {
+        return (
+          <p className="text-green-500 mt-[16px]">
+            Agente já associado à sua imobiliária.
+          </p>
+        )
+      }
+      return (
+        <p className="text-red-500 mt-[16px]">
+          Agente já associado a outra imobiliária.
+        </p>
+      )
+    }
+
+    return (
+      <div className="flex flex-col items-center mt-[16px]">
+        <AgenteCard agente={agente} />
+        <div className="flex justify-end mt-[16px]">
+          <button
+            className="flex justify-center items-center text-xs rounded-full transition-all duration-300 bg-marrom"
+            onClick={handleAddAgente}
+          >
+            <p className="text-white font-bold px-4 py-2">Associar</p>
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="flex h-screen flex-col items-center bg-bege">
       <div className="p-[64px_24px] flex flex-col w-full h-screen justify-between">
@@ -117,28 +177,12 @@ export default function AssociarAgente() {
               onClick={handleSearch}
             />
           </div>
-          <div className="mt-[32px]">
-            {hasSearched ? (
-              agente ? (
-                <div className="flex flex-col items-center gap-4 mt-[32px]">
-                  <AgenteCard agente={agente} />
-                  {agente.imobiliariaId ? (
-                    <p className="text-red-500">
-                      Agente já cadastrado em outra imobiliária!
-                    </p>
-                  ) : (
-                    <button className="flex justify-center items-center text-xs rounded-full transition-all duration-300 bg-marrom">
-                      <p className="text-white font-bold px-4 py-2">
-                        Adicionar
-                      </p>
-                    </button>
-                  )}
-                </div>
-              ) : (
-                <p className="text-red-500">Agente não encontrado.</p>
-              )
-            ) : null}
-          </div>
+          <SearchResults
+            agente={agente}
+            session={session}
+            hasSearched={hasSearched}
+            handleAddAgente={handleAddAgente}
+          />
         </div>
         <div className="flex flex-col">
           <CustomButton
