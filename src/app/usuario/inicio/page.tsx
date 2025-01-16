@@ -7,8 +7,8 @@ import { Search } from 'lucide-react'
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
-export default function Home() {
-  const router = useRouter()
+export default function UserHome() {
+  const router = useRouter();
 
   // Dados de exemplo dos imóveis
   const imoveis = [

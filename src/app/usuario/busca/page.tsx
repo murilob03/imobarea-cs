@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import SmallButton from '@/components/SmallButton'
 import InputField from '@/components/InputField'
 import {
   Search,
@@ -13,7 +12,7 @@ import {
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
-export default function Home() {
+export default function Busca() {
   const router = useRouter()
 
   // Estado para armazenar o valor do input
@@ -30,6 +29,11 @@ export default function Home() {
     },
     // Adicione mais imóveis conforme necessário
   ]
+
+  // Função para limpar o campo de entrada
+  const clearInput = () => {
+    setInputValue('')
+  }
 
   return (
     <div className="flex h-screen flex-col items-center bg-bege">
@@ -54,14 +58,23 @@ export default function Home() {
               placeholder=""
               required
               className="pl-14 placeholder:text-black text-base"
+              value={inputValue} // Controla o valor do input pelo estado
+              onChange={(e) => setInputValue(e.target.value)} // Atualiza o estado quando o usuário digita
             />
             <Search size={24} className="absolute left-6" />
-            <CircleX size={24} className="absolute right-6 cursor-pointer" />
+            <CircleX
+              size={24}
+              className="absolute right-6 cursor-pointer"
+              onClick={clearInput} // Limpa o campo ao clicar
+            />
           </div>
 
           {/* Botão Filtrar */}
           <div className="flex justify-end mt-4">
-            <button className="flex items-center gap-2 text-base font-semibold px-4 py-2">
+            <button
+              className="flex items-center gap-2 text-base font-semibold px-4 py-2"
+              onClick={() => router.push('/usuario/busca/filtro')}
+            >
               <SlidersHorizontal size={18} />
               filtrar
             </button>
