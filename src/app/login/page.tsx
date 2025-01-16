@@ -38,7 +38,7 @@ export default function SignIn() {
         router.push(callbackUrl)
         return
       }
-      router.push('/dashboard')
+      router.push('/usuario/inicio')
     }
   }
 

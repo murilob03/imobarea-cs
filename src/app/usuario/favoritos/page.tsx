@@ -56,8 +56,8 @@ export default function Favorites() {
             /> */}
           </div>
         </div>
-        <Footer/>
       </div>
+      <Footer activeState='Favoritos'/>
     </div>
   );
 }

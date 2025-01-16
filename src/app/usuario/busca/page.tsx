@@ -37,7 +37,7 @@ export default function Busca() {
 
   return (
     <div className="flex h-screen flex-col items-center bg-bege">
-      <div className="p-[64px_24px] flex flex-col w-full h-full justify-between">
+      <div className="flex p-[64px_24px] flex-col w-full justify-between">
         <div>
           {/* Cabeçalho com seta e título */}
           <h1 className="flex items-center text-2xl font-bold mb-[48px] gap-4">
@@ -95,8 +95,8 @@ export default function Busca() {
             /> */}
           </div>
         </div>
-        <Footer activeState='Buscar'/>
       </div>
+      <Footer activeState='Buscar'/>
     </div>
   )
 }

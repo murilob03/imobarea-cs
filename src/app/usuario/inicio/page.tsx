@@ -47,7 +47,6 @@ export default function UserHome() {
             <SmallButton text="Comercial" />
           </div>
           <h1 className="text-2xl font-bold mt-[32px] mb-[24px]">Populares</h1>
-          <h1 className="text-2xl font-bold mt-[32px] mb-[24px]">Populares</h1>
 
           {/* Div de imóveis populares com margem acima e abaixo */}
           <div className="flex flex-wrap gap-4 overflow-y-auto max-h-[calc(100vh-350px)] w-full my-6">
@@ -63,8 +62,8 @@ export default function UserHome() {
           />} */}
           </div>
         </div>
-        <Footer activeState="Início" />
       </div>
+      <Footer activeState="Início" />
     </div>
   )
 }

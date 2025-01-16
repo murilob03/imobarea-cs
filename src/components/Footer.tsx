@@ -17,7 +17,7 @@ const Footer = ({ activeState }: FooterProps) => {
   else if (role === 'CLIENTE') destination = '/usuario/perfil/cliente'
 
   return (
-    <div className="flex justify-between items-center w-full h-[67px] mb-[32px]">
+    <div className="fixed bottom-0 bg-bege flex justify-between items-center w-[390px] p-8">
       {/* Início */}
       <a
         href="/usuario/inicio"

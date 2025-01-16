@@ -19,7 +19,7 @@ const inter = Inter({
 export default function RootLayout({ children, session }: RootLayoutProps) {
   return (
     <html lang="pt-br" className={inter.className}>
-      <body>
+      <body className="w-[390px] mx-auto">
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>

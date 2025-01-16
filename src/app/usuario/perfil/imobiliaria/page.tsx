@@ -9,7 +9,7 @@ import Footer from '@/components/Footer'
 
 export default function PerfilImobiliaria() {
   return (
-    <div className="flex flex-col items-center p-6 w-full h-screen justify-between">
+    <div className="flex p-[64px_24px] flex-col items-center w-full h-screen justify-between">
       {/* Conteúdo Superior */}
       <div className="flex flex-col gap-6 w-full">
         <a href="/usuario/inicio">
@@ -43,7 +43,7 @@ export default function PerfilImobiliaria() {
       <CustomButton text="Visualizar imóveis" href="/" />
 
       {/* Rodapé */}
-      <Footer activeState='Perfil'/>
+      <Footer activeState="Perfil" />
     </div>
   )
 }
