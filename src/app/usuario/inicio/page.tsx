@@ -3,12 +3,11 @@
 import { useRouter } from 'next/navigation'
 import SmallButton from '@/components/SmallButton'
 import InputField from '@/components/InputField'
-import { LuSearch } from 'react-icons/lu'
+import { Search } from 'lucide-react'
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
 export default function Home() {
-  const router = useRouter()
   const router = useRouter()
 
   // Dados de exemplo dos imóveis
@@ -17,14 +16,9 @@ export default function Home() {
       id: 1,
       title: 'Noah',
       location: 'Tiradentes - zona 1, Maringá - PR',
-      title: 'Noah',
-      location: 'Tiradentes - zona 1, Maringá - PR',
-      rating: 4.0,
-      image: 'https://via.placeholder.com/342x140',
       image: 'https://via.placeholder.com/342x140',
     },
     // Adicione mais imóveis conforme necessário
-  ]
   ]
 
   return (
@@ -44,7 +38,7 @@ export default function Home() {
               required
               className="pl-14 placeholder:text-black text-base"
             />
-            <LuSearch size={24} className="absolute left-6" />
+            <Search size={24} className="absolute left-6" />
           </div>
           <div className="mt-[32px] flex gap-4">
             {/* Botões dinâmicos */}
@@ -69,9 +63,8 @@ export default function Home() {
           />} */}
           </div>
         </div>
-        <Footer activeState='Início'/>
+        <Footer activeState="Início" />
       </div>
     </div>
-  )
   )
 }

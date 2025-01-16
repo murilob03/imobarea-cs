@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation'
 import SmallButton from '@/components/SmallButton'
 import InputField from '@/components/InputField'
 import {
-  LuSearch,
-  LuCircleX,
-  LuSlidersHorizontal,
-  LuArrowLeft,
-} from 'react-icons/lu'
+  Search,
+  CircleX,
+  SlidersHorizontal,
+  ArrowLeft,
+} from 'lucide-react'
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
@@ -37,7 +37,7 @@ export default function Home() {
         <div>
           {/* Cabeçalho com seta e título */}
           <h1 className="flex items-center text-2xl font-bold mb-[48px] gap-4">
-            <LuArrowLeft
+            <ArrowLeft
               size={24}
               className="cursor-pointer"
               onClick={() => router.back()}
@@ -55,14 +55,14 @@ export default function Home() {
               required
               className="pl-14 placeholder:text-black text-base"
             />
-            <LuSearch size={24} className="absolute left-6" />
-            <LuCircleX size={24} className="absolute right-6 cursor-pointer" />
+            <Search size={24} className="absolute left-6" />
+            <CircleX size={24} className="absolute right-6 cursor-pointer" />
           </div>
 
           {/* Botão Filtrar */}
           <div className="flex justify-end mt-4">
             <button className="flex items-center gap-2 text-base font-semibold px-4 py-2">
-              <LuSlidersHorizontal size={18} />
+              <SlidersHorizontal size={18} />
               filtrar
             </button>
           </div>
