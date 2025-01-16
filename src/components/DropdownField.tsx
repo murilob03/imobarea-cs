@@ -8,6 +8,8 @@ interface DropdownFieldProps {
   required?: boolean;
   className?: string; // Permitir estilos personalizados
   placeholder?: string; // Placeholder dinâmico
+  value?: string | number; // Valor selecionado controlado externamente
+  onChange?: (value: string | number) => void; // Função de callback ao alterar o valor
 }
 
 export default function DropdownField({
@@ -17,13 +19,23 @@ export default function DropdownField({
   required,
   className = "",
   placeholder = "Selecione uma opção", // Valor padrão para o placeholder
+  value,
+  onChange,
 }: DropdownFieldProps) {
-  const [selectedValue, setSelectedValue] = useState<string | number | null>(null);
+  const [internalValue, setInternalValue] = useState<string | number | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    // Verificar se o valor pode ser convertido para número ou manter como string
-    setSelectedValue(isNaN(Number(value)) ? value : Number(value));
+    const selectedValue = isNaN(Number(event.target.value))
+      ? event.target.value
+      : Number(event.target.value);
+
+    // Atualiza o valor interno se o controle for local
+    setInternalValue(selectedValue);
+
+    // Chama o callback de mudança se fornecido
+    if (onChange) {
+      onChange(selectedValue);
+    }
   };
 
   return (
@@ -33,7 +45,7 @@ export default function DropdownField({
         <select
           className={`flex border w-full bg-bege border-solid border-black rounded-2xl p-[18px_8px] pr-10 ${className} appearance-none`}
           name={name}
-          value={selectedValue || ""}
+          value={value !== undefined ? value : internalValue || ""}
           onChange={handleChange}
           required={required}
         >

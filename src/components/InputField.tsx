@@ -7,6 +7,8 @@ interface InputFieldProps {
   placeholder: string;
   required?: boolean;
   className?: string; // Permitir estilos personalizados
+  value?: string; // Adiciona o valor controlado do input
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // Adiciona o evento para capturar mudanças
 }
 
 export default function InputField({
@@ -16,6 +18,8 @@ export default function InputField({
   placeholder,
   required,
   className = "",
+  value,
+  onChange,
 }: InputFieldProps) {
   return (
     <div className="flex flex-col w-full gap-2">
@@ -26,6 +30,8 @@ export default function InputField({
         name={name}
         placeholder={placeholder}
         required={required}
+        value={value} // Vincula o valor do input
+        onChange={onChange} // Adiciona o evento onChange
       />
     </div>
   );

@@ -8,7 +8,7 @@ import { LuSearch, LuCircleX, LuSlidersHorizontal, LuArrowLeft } from 'react-ico
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
-export default function Home() {
+export default function Favorites() {
   const router = useRouter();
 
   // Estado para armazenar o valor do input
@@ -38,40 +38,9 @@ export default function Home() {
           {/* Cabeçalho com seta e título */}
           <h1 className="flex items-center text-2xl font-bold mb-[48px] gap-4">
             <LuArrowLeft size={24} className="cursor-pointer" onClick={() => router.back()} />
-            Busca
+            Favoritos
           </h1>
-
-          {/* Campo de entrada com ícones */}
-          <div className="flex items-center relative">
-            <InputField
-              label=""
-              type="string"
-              name="creci"
-              placeholder=""
-              required
-              className="pl-14 placeholder:text-black text-base"
-              value={inputValue} // Controla o valor do input pelo estado
-              onChange={(e) => setInputValue(e.target.value)} // Atualiza o estado quando o usuário digita
-            />
-            <LuSearch size={24} className="absolute left-6" />
-            <LuCircleX
-              size={24}
-              className="absolute right-6 cursor-pointer"
-              onClick={clearInput} // Limpa o campo ao clicar
-            />
-          </div>
           
-          {/* Botão Filtrar */}
-          <div className="flex justify-end mt-4">
-            <button
-              className="flex items-center gap-2 text-base font-semibold px-4 py-2"
-              onClick={() => router.push('/usuario/busca/filtro')}
-            >
-              <LuSlidersHorizontal size={18} />
-              filtrar
-            </button>
-          </div>
-
           {/* Div de imóveis populares */}
           <div className="flex flex-wrap gap-4 overflow-y-auto max-h-[calc(100vh-350px)] w-full my-6">
             {/* Exemplo de como os imóveis serão renderizados */}
