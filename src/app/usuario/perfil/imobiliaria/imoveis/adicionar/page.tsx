@@ -9,6 +9,7 @@ import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { UserRole, UserCriar } from '@/types'
 import ImageField from '@/components/ImageField'
+import { estadosOptions } from '@/utils/estadoOptions'
 
 export default function RegistrationForm() {
   const router = useRouter()
@@ -148,7 +149,7 @@ export default function RegistrationForm() {
                 <DropdownButton
                 selectedOption={selectedOption}
                 setSelectedOption={setSelectedOption}
-                type="Estado" // Define o tipo como DDD
+                options={estadosOptions}
                 />
                   <InputField
                     label=""
