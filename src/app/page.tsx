@@ -1,5 +1,5 @@
-import Image from "next/image";
-import CustomButton from "@/components/CustomButton";
+import Image from 'next/image'
+import CustomButton from '@/components/CustomButton'
 
 export default function Home() {
   return (
@@ -14,11 +14,7 @@ export default function Home() {
           priority
         />
         <div className="flex flex-col gap-px-32">
-          
-          <CustomButton
-          href="/login"
-          text="Continue com o número de celular"
-          />
+          <CustomButton href="/login" text="Continue com o número de celular" />
           <a
             className="flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] border border-solid border-black rounded-full font-bold"
             href=""
@@ -28,18 +24,17 @@ export default function Home() {
           <a
             className="flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] border border-solid border-black rounded-full font-bold"
             href=""
-            
           >
             Login com e-mail
           </a>
         </div>
       </div>
       <p className="">
-        Não possui uma conta?{" "}
+        Não possui uma conta?{' '}
         <a className="text-marrom" href="/cadastro">
           Cadastro
         </a>
       </p>
     </div>
-  );
+  )
 }

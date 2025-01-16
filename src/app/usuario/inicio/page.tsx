@@ -9,6 +9,7 @@ import ShowImovel from '@/components/ShowImovel'
 
 export default function Home() {
   const router = useRouter()
+  const router = useRouter()
 
   // Dados de exemplo dos imóveis
   const imoveis = [
@@ -16,10 +17,14 @@ export default function Home() {
       id: 1,
       title: 'Noah',
       location: 'Tiradentes - zona 1, Maringá - PR',
+      title: 'Noah',
+      location: 'Tiradentes - zona 1, Maringá - PR',
       rating: 4.0,
+      image: 'https://via.placeholder.com/342x140',
       image: 'https://via.placeholder.com/342x140',
     },
     // Adicione mais imóveis conforme necessário
+  ]
   ]
 
   return (
@@ -48,10 +53,11 @@ export default function Home() {
             <SmallButton text="Comercial" />
           </div>
           <h1 className="text-2xl font-bold mt-[32px] mb-[24px]">Populares</h1>
+          <h1 className="text-2xl font-bold mt-[32px] mb-[24px]">Populares</h1>
 
           {/* Div de imóveis populares com margem acima e abaixo */}
           <div className="flex flex-wrap gap-4 overflow-y-auto max-h-[calc(100vh-350px)] w-full my-6">
-            {/* { <ShowImovel
+            {/* <ShowImovel
             title={imoveis[0].title}
             location={imoveis[0].location}
             image={imoveis[0].image}
@@ -66,5 +72,6 @@ export default function Home() {
         <Footer activeState='Início'/>
       </div>
     </div>
+  )
   )
 }

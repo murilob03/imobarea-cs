@@ -1,20 +1,20 @@
-"use client";
+'use client'
 
-import { SessionProvider } from "next-auth/react";
-import { ReactNode } from "react";
-import { Inter } from "next/font/google"; // Import Inter font
+import { SessionProvider } from 'next-auth/react'
+import { ReactNode } from 'react'
+import { Inter } from 'next/font/google' // Import Inter font
 
-import "./globals.css";
+import './globals.css'
 
 interface RootLayoutProps {
-  children: ReactNode;
-  session?: any; // Optional session prop
+  children: ReactNode
+  session?: any // Optional session prop
 }
 
 const inter = Inter({
-  subsets: ["latin"], // Optimize for the Latin subset
-  display: "swap",    // Use fallback font while loading
-});
+  subsets: ['latin'], // Optimize for the Latin subset
+  display: 'swap', // Use fallback font while loading
+})
 
 export default function RootLayout({ children, session }: RootLayoutProps) {
   return (
@@ -23,5 +23,5 @@ export default function RootLayout({ children, session }: RootLayoutProps) {
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>
-  );
+  )
 }

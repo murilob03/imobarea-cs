@@ -25,26 +25,27 @@ export default function RegistrationForm() {
       return
     }
 
-    const senha = (form.elements.namedItem('senha') as HTMLInputElement).value
-    const confirmaSenha = (
-      form.elements.namedItem('confirmSenha') as HTMLInputElement
+    const password = (form.elements.namedItem('password') as HTMLInputElement)
+      .value
+    const confirmPassword = (
+      form.elements.namedItem('confirmPassword') as HTMLInputElement
     ).value
 
-    if (senha !== confirmaSenha) {
+    if (password !== confirmPassword) {
       console.log('As senhas não são iguais!')
       return
     }
 
-    const telefone = `${selectedOption}${
-      (form.elements.namedItem('telefone') as HTMLInputElement).value
+    const cellphone = `${selectedOption}${
+      (form.elements.namedItem('cellphone') as HTMLInputElement).value
     }`
 
     const novo_cliente: UserCriar = {
-      name: (form.elements.namedItem('nome') as HTMLInputElement).value,
-      cellphone: telefone,
+      name: (form.elements.namedItem('name') as HTMLInputElement).value,
+      cellphone: cellphone,
       email: (form.elements.namedItem('email') as HTMLInputElement).value,
       cpf: (form.elements.namedItem('cpf') as HTMLInputElement).value,
-      password: senha,
+      password: password,
       role: UserRole.CLIENTE,
     }
 
@@ -84,7 +85,7 @@ export default function RegistrationForm() {
         <InputField
           label="Nome completo:"
           type="text"
-          name="nome"
+          name="name"
           placeholder=""
           required
         />
@@ -97,7 +98,7 @@ export default function RegistrationForm() {
           <InputField
             label=""
             type="tel"
-            name="password"
+            name="cellphone"
             placeholder=""
             required
           />
@@ -126,7 +127,7 @@ export default function RegistrationForm() {
         <InputField
           label="Confirme a sua senha:"
           type="password"
-          name="password"
+          name="confirmPassword"
           placeholder=""
           required
         />
