@@ -25,7 +25,8 @@ export default function RegistrationForm() {
       return
     }
 
-    const password = (form.elements.namedItem('password') as HTMLInputElement).value
+    const password = (form.elements.namedItem('password') as HTMLInputElement)
+      .value
     const confirmPassword = (
       form.elements.namedItem('confirmPassword') as HTMLInputElement
     ).value
