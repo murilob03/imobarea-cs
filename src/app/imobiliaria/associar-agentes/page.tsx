@@ -3,17 +3,32 @@
 import AgenteCard from '@/components/AgenteCard'
 import CustomButton from '@/components/CustomButton'
 import InputField from '@/components/InputField'
+import SmallButton from '@/components/SmallButton'
+import { UserRole } from '@/types'
 import { AgenteLer } from '@/types/usuarios'
-import { Search } from 'lucide-react'
+import { Search, User } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
 export default function AssociarAgente() {
+  const { data: session } = useSession()
+
   const [agente, setAgente] = useState<AgenteLer | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [hasSearched, setHasSearched] = useState(false)
 
-  const handleContinue = () => {
-    // Add logic for "Continuar" button if needed
+  if (!session) {
+    return <p>Loading...</p>
+  } else if (session.user.role !== UserRole.IMOBILIARIA) {
+    return (
+      <p className="text-red-500">
+        Você não tem permissão para acessar esta página!
+      </p>
+    )
+  }
+
+  const handleContinue = async () => {
+    // router.push('/imobiliaria/associar-agentes/sucesso')
   }
 
   const handleSearch = async () => {
@@ -34,24 +49,46 @@ export default function AssociarAgente() {
     try {
       if (!creci) throw new Error('Por favor, insira um número CRECI válido.')
 
-      const response = await fetch(`/api/usuario?query=creci:${creci}`)
+      const response = await fetch(`/api/agente?creci=${creci}`)
       if (!response.ok) throw new Error('Erro ao buscar o agente.')
 
-      const fetchedAgents = await response.json()
+      const agenteFetched = await response.json()
+      setAgente(agenteFetched)
 
-      if (Array.isArray(fetchedAgents) && fetchedAgents.length > 0) {
-        setAgente(fetchedAgents[0]) // Assign the first agent
-        setErrorMessage(null) // Clear error message
-      } else {
-        throw new Error('Nenhum agente encontrado.')
-      }
-
-      setAgente(fetchedAgents[0])
       console.log(agente)
 
       setErrorMessage(null) // Clear error message
-    } catch (error) {
+    } catch (error: any) {
       setAgente(null)
+      setErrorMessage(error.message || 'Erro desconhecido.')
+    }
+  }
+
+  const handleAddAgente = async () => {
+    if (!agente) {
+      setErrorMessage('Por favor, selecione um agente.')
+      return
+    }
+
+    try {
+      const response = await fetch(`/api/agente/${agente.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          imobiliariaId: session.user.id,
+        }),
+      })
+      if (!response.ok) throw new Error('Erro ao associar o agente.')
+      const data = await response.json()
+
+      setAgente(null)
+      setHasSearched(false)
+
+      // success message
+      console.log(data)
+    } catch (error: any) {
       setErrorMessage(error.message || 'Erro desconhecido.')
     }
   }
@@ -82,8 +119,21 @@ export default function AssociarAgente() {
           </div>
           <div className="mt-[32px]">
             {hasSearched ? (
-              agente?.name ? (
-                <AgenteCard agente={agente} />
+              agente ? (
+                <div className="flex flex-col items-center gap-4 mt-[32px]">
+                  <AgenteCard agente={agente} />
+                  {agente.imobiliariaId ? (
+                    <p className="text-red-500">
+                      Agente já cadastrado em outra imobiliária!
+                    </p>
+                  ) : (
+                    <button className="flex justify-center items-center text-xs rounded-full transition-all duration-300 bg-marrom">
+                      <p className="text-white font-bold px-4 py-2">
+                        Adicionar
+                      </p>
+                    </button>
+                  )}
+                </div>
               ) : (
                 <p className="text-red-500">Agente não encontrado.</p>
               )

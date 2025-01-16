@@ -9,4 +9,5 @@ export interface ClienteLer {
 
 export interface AgenteLer extends ClienteLer {
   creci: string
+  imobiliariaId: string | null
 }

@@ -6,10 +6,14 @@ import { ArrowLeft } from 'lucide-react'
 import DropdownButton from '@/components/DropdownButton'
 import InputField from '@/components/InputField'
 import CustomButton from '@/components/CustomButton'
+import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 export default function SignIn() {
   const [error, setError] = useState<string>('')
   const [areaCode, setAreaCode] = useState('44')
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -29,7 +33,12 @@ export default function SignIn() {
     if (result?.error) {
       setError('Invalid cellphone or password')
     } else {
-      window.location.href = '/dashboard' // Redirect after login
+      const callbackUrl = searchParams.get('callbackUrl')
+      if (callbackUrl) {
+        router.push(callbackUrl)
+        return
+      }
+      router.push('/dashboard')
     }
   }
 

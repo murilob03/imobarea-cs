@@ -13,7 +13,8 @@ async function main() {
           name: 'John Doe',
           email: 'john.doe@example.com',
           cellphone: '441234567890',
-          password: '$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC',
+          password:
+            '$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC',
           role: 'CLIENTE',
         },
       },
@@ -28,7 +29,8 @@ async function main() {
           name: 'Jane Smith',
           email: 'jane.smith@example.com',
           cellphone: '440987654321',
-          password: '$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC',
+          password:
+            '$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC',
           role: 'CLIENTE',
         },
       },
@@ -44,45 +46,56 @@ async function main() {
           name: 'Imobiliaria XYZ',
           email: 'xyz@realty.com',
           cellphone: '445555555555',
-          password: '$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC',
+          password:
+            '$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC',
           role: 'IMOBILIARIA',
         },
       },
       cnpj: '12345678901234',
-      agentes: {
-        create: [
-          {
-            user: {
-              create: {
-                name: 'Agent 1',
-                email: 'agent1@realty.com',
-                cellphone: '444444444444',
-                password: '$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC',
-                role: 'AGENTE',
-              },
-            },
-            cpf: '11122233344',
-            creci: 'CRECI001',
-          },
-          {
-            user: {
-              create: {
-                name: 'Agent 2',
-                email: 'agent2@realty.com',
-                cellphone: '443333333333',
-                password: '$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC',
-                role: 'AGENTE',
-              },
-            },
-            cpf: '55566677788',
-            creci: 'CRECI002',
-          },
-        ],
+    },
+  })
+
+  // Create Agentes
+  const agente1 = await prisma.agente.create({
+    data: {
+      user: {
+        create: {
+          name: 'Agent 1',
+          email: 'agent1@realty.com',
+          cellphone: '444444444444',
+          password:
+            '$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC',
+          role: 'AGENTE',
+        },
+      },
+      cpf: '11122233344',
+      creci: 'CRECI001',
+      imobiliaria: {
+        connect: {
+          id: imobiliaria.id,
+        },
       },
     },
   })
 
-  console.log({ cliente1, cliente2, imobiliaria })
+  const agente2 = await prisma.agente.create({
+    data: {
+      user: {
+        create: {
+          name: 'Agent 2',
+          email: 'agent2@realty.com',
+          cellphone: '443333333333',
+          password:
+            '$2b$10$r07EqD6J.5ZNuDiHT1dBBOj3BlR8aenPIcx1590pefDL/RO1H7ogC',
+          role: 'AGENTE',
+        },
+      },
+      cpf: '55566677788',
+      creci: 'CRECI002',
+    },
+  })
+
+  console.log({ cliente1, cliente2, imobiliaria, agente1, agente2 })
 
   console.log('Finished seeding. 🌱')
 }

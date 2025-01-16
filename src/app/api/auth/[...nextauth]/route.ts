@@ -22,7 +22,10 @@ export const authOptions: NextAuthOptions = {
         // Find user by cellphone
         const user = await prisma.user.findUnique({
           where: { cellphone: credentials.cellphone },
+          include: { Cliente: true, Imobiliaria: true, Agente: true },
         })
+
+        console.log(user)
 
         // Validate user and password
         if (
