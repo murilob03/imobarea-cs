@@ -8,7 +8,7 @@ import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
 export default function UserHome() {
-  const router = useRouter();
+  const router = useRouter()
 
   // Dados de exemplo dos imóveis
   const imoveis = [

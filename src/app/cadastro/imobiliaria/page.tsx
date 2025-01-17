@@ -37,7 +37,7 @@ export default function RegistrationForm() {
       return
     }
 
-    const cellphone = `${selectedOption.replace('+','')}${
+    const cellphone = `${selectedOption.replace('+', '')}${
       (form.elements.namedItem('cellphone') as HTMLInputElement).value
     }`
 

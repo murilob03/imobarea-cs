@@ -2,13 +2,13 @@ import React from 'react'
 import { Star, Heart, MapPin } from 'lucide-react'
 
 interface ShowImovelProps {
-  title: string;
-  location: string;
-  image: string;
-  area: number;
-  garage: number;
-  bedrooms: number;
-  builder: string;
+  title: string
+  location: string
+  image: string
+  area: number
+  garage: number
+  bedrooms: number
+  builder: string
 }
 
 const ShowImovel: React.FC<ShowImovelProps> = ({
@@ -34,8 +34,7 @@ const ShowImovel: React.FC<ShowImovelProps> = ({
       <div className="absolute bottom-0 w-full bg-gradient-to-t from-marrom to-marrom text-white p-4 h-[75px]">
         <div className="flex justify-between items-center">
           <h3 className="text-base font-bold truncate">{title}</h3>
-          <div className="flex items-center">
-          </div>
+          <div className="flex items-center"></div>
         </div>
         <div className="flex items-center text-sm mt-1">
           <MapPin size={16} className="mr-1" />

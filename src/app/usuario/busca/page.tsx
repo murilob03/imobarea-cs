@@ -3,12 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import InputField from '@/components/InputField'
-import {
-  Search,
-  CircleX,
-  SlidersHorizontal,
-  ArrowLeft,
-} from 'lucide-react'
+import { Search, CircleX, SlidersHorizontal, ArrowLeft } from 'lucide-react'
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 
@@ -96,7 +91,7 @@ export default function Busca() {
           </div>
         </div>
       </div>
-      <Footer activeState='Buscar'/>
+      <Footer activeState="Buscar" />
     </div>
   )
 }

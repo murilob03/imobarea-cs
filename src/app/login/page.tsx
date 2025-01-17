@@ -27,7 +27,7 @@ export default function SignIn() {
       .value
 
     const result = await signIn('credentials', {
-      cellphone: areaCode.replace('+','') + cellphone,
+      cellphone: areaCode.replace('+', '') + cellphone,
       password,
       redirect: false,
     })

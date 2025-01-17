@@ -79,7 +79,7 @@ export default function RegistrationForm() {
       tipo,
       endereco,
       imobiliariaId: session.user.id,
-      agenteId: null
+      agenteId: null,
     }
 
     try {

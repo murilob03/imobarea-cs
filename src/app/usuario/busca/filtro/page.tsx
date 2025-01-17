@@ -8,11 +8,11 @@ import Footer from '@/components/Footer'
 export default function Filter() {
   // Estado para armazenar os valores selecionados em cada dropdown
   const [filters, setFilters] = useState<{
-    categoria: string | number;
-    tamanho: string | number;
-    numero: string | number;
-    valor: string | number;
-    tipoServico: string | number;
+    categoria: string | number
+    tamanho: string | number
+    numero: string | number
+    valor: string | number
+    tipoServico: string | number
   }>({
     categoria: '',
     tamanho: '',
@@ -92,7 +92,7 @@ export default function Filter() {
           />
         </div>
       </div>
-      <Footer activeState='Buscar'/>
+      <Footer activeState="Buscar" />
     </div>
   )
 }

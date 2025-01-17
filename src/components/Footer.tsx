@@ -3,7 +3,7 @@ import { Home, Heart, Search, MessageCircle, User } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 
 interface FooterProps {
-  activeState: string;  // Adicionando a prop activeState
+  activeState: string // Adicionando a prop activeState
 }
 
 const Footer = ({ activeState }: FooterProps) => {
