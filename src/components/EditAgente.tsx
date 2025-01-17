@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { MapPin, PackageX } from 'lucide-react'
 import Image from 'next/image'
 
-const EditImovel = () => {
+const EditAgente = () => {
   const [isExpanded, setIsExpanded] = useState(false)
 
   const handleToggle = () => {
@@ -51,4 +51,4 @@ const EditImovel = () => {
   )
 }
 
-export default EditImovel
+export default EditAgente

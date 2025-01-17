@@ -8,7 +8,7 @@ import Image from 'next/image'
 import Footer from '@/components/Footer'
 import EditAgente from '@/components/EditAgente'
 
-export default function PerfilImobiliaria() {
+export default function ListarAgentesCadastrados() {
   return (
     <div className="flex p-[64px_24px] mb-[100px] flex-col items-center gap-8 w-full justify-between">
       {/* Conteúdo Superior */}
