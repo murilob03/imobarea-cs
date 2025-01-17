@@ -9,7 +9,7 @@ import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 import EditImovel from '@/components/EditImovel'
 
-export default function PerfilImobiliaria() {
+export default function ListarImoveis() {
   return (
     <div className="flex p-[64px_24px] flex-col items-center gap-8 w-full justify-between">
       {/* Conteúdo Superior */}
