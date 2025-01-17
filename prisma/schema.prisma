@@ -25,8 +25,8 @@ model User {
 }
 
 model Cliente {
-    id String @id
-    cpf    String
+    id  String @id
+    cpf String
 
     user User @relation(fields: [id], references: [id], onDelete: Cascade)
 }
@@ -39,12 +39,47 @@ model Agente {
 
     user        User         @relation(fields: [id], references: [id], onDelete: Cascade)
     imobiliaria Imobiliaria? @relation(fields: [imobiliariaId], references: [id])
+    /**
+     * One-to-many relationship with Imovel
+     * agent can only associate with a Imovel if both belong to the same Imobiliaria
+     * this constrait needs to be enforced in the application layer
+     */
+    Imovel      Imovel[]
 }
 
 model Imobiliaria {
-    id     String @id
-    cnpj   String
+    id   String @id
+    cnpj String
 
     user    User     @relation(fields: [id], references: [id], onDelete: Cascade)
     agentes Agente[] // One-to-many relationship with Agente
+    imoveis Imovel[] // One-to-many relationship with Imovel
+}
+
+model Imovel {
+    id            String @id @default(uuid())
+    nome          String
+    areaPrivada   Float
+    numQuartos    Int
+    numVagas      Int
+    tipo          String
+    enderecoId    String
+    imobiliariaId String
+    agenteId      String?
+
+    imobiliaria Imobiliaria @relation(fields: [imobiliariaId], references: [id])
+    endereco    Endereco    @relation(fields: [enderecoId], references: [id])
+    agente      Agente?     @relation(fields: [agenteId], references: [id])
+}
+
+model Endereco {
+    id         String @id @default(uuid())
+    cep        String
+    logradouro String
+    numero     String
+    bairro     String
+    cidade     String
+    estado     String
+
+    Imovel Imovel[] // One-to-many relationship with Imovel
 }
