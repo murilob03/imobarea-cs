@@ -134,6 +134,7 @@ async function main() {
           logradouro: 'Av Tiradentes',
           numero: '1027',
           bairro: 'Zona 01',
+          complemento: 'Apto 101',
           cidade: 'Maringá',
           estado: 'PR',
         },

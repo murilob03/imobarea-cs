@@ -57,8 +57,8 @@ model Imobiliaria {
 }
 
 model Imovel {
-    id            String @id @default(uuid())
-    nome          String
+    id            String  @id @default(uuid())
+    nome          String  @unique
     areaPrivada   Float
     numQuartos    Int
     numVagas      Int
@@ -73,13 +73,14 @@ model Imovel {
 }
 
 model Endereco {
-    id         String @id @default(uuid())
-    cep        String
-    logradouro String
-    numero     String
-    bairro     String
-    cidade     String
-    estado     String
+    id          String  @id @default(uuid())
+    cep         String
+    logradouro  String
+    numero      String
+    bairro      String
+    complemento String?
+    cidade      String
+    estado      String
 
     Imovel Imovel[] // One-to-many relationship with Imovel
 }
