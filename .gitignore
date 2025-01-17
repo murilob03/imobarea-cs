@@ -42,3 +42,6 @@ next-env.d.ts
 
 # prisma sqlite database
 /prisma/dev.db
+
+# test page
+/src/app/test/page.tsx

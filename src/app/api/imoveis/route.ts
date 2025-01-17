@@ -27,7 +27,9 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const newImovel = await prisma.imovel.create({
+    console.log(imovel)
+
+    const novoImovel = await prisma.imovel.create({
       data: {
         nome: imovel.nome,
         areaPrivada: imovel.areaPrivada,
@@ -38,13 +40,10 @@ export async function POST(req: NextRequest) {
           create: imovel.endereco,
         },
         imobiliaria: { connect: { id: imovel.imobiliariaId } },
-        agente: imovel.agenteId
-          ? { connect: { id: imovel.agenteId } }
-          : undefined,
       },
     })
 
-    return NextResponse.json(newImovel)
+    return NextResponse.json(novoImovel, { status: 201 })
   } catch (error) {
     console.error(error)
     return NextResponse.json(

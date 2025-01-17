@@ -105,9 +105,9 @@ async function main() {
       tipo: 'CASA',
       endereco: {
         create: {
-          cep: '12345678',
+          cep: 12345678,
           logradouro: 'Rua das Flores',
-          numero: '123',
+          numero: 123,
           bairro: 'Centro',
           cidade: 'Curitiba',
           estado: 'PR',
@@ -130,9 +130,9 @@ async function main() {
       tipo: 'APARTAMENTO',
       endereco: {
         create: {
-          cep: '87060450',
+          cep: 87060450,
           logradouro: 'Av Tiradentes',
-          numero: '1027',
+          numero: 1027,
           bairro: 'Zona 01',
           complemento: 'Apto 101',
           cidade: 'Maringá',

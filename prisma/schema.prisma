@@ -74,9 +74,9 @@ model Imovel {
 
 model Endereco {
     id          String  @id @default(uuid())
-    cep         String
+    cep         Int
     logradouro  String
-    numero      String
+    numero      Int
     bairro      String
     complemento String?
     cidade      String
