@@ -14,7 +14,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   type = 'button',
 }) => {
   const commonClasses =
-    'flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] bg-marrom rounded-full font-bold text-white'
+    'flex justify-center items-center gap-2.5 self-stretch p-[26px_32px] bg-marrom rounded-full font-bold text-white w-[344px] h-[71px]'
 
   if (href) {
     return (

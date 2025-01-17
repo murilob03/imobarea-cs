@@ -6,11 +6,12 @@ import DropdownButton from '@/components/DropdownButton'
 import CustomButton from '@/components/CustomButton'
 import { useRouter } from 'next/navigation'
 import { UserRole, UserCriar } from '@/types'
+import { dddOptions } from '@/utils/dddOptions'
 
 export default function RegistrationForm() {
   const router = useRouter()
 
-  const [selectedOption, setSelectedOption] = useState('44')
+  const [selectedOption, setSelectedOption] = useState('+44')
   const [isChecked, setIsChecked] = useState(false)
 
   const toggleCheckbox = () => setIsChecked(!isChecked)
@@ -94,6 +95,7 @@ export default function RegistrationForm() {
           <DropdownButton
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
+            options={dddOptions}
           />
           <InputField
             label=""
