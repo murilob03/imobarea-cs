@@ -95,7 +95,72 @@ async function main() {
     },
   })
 
-  console.log({ cliente1, cliente2, imobiliaria, agente1, agente2 })
+  // Create Imoveis
+  const imovel1 = await prisma.imovel.create({
+    data: {
+      nome: 'Casa do John Doe',
+      areaPrivada: 100,
+      numQuartos: 3,
+      numVagas: 2,
+      tipo: 'CASA',
+      endereco: {
+        create: {
+          cep: 12345678,
+          logradouro: 'Rua das Flores',
+          numero: 123,
+          bairro: 'Centro',
+          cidade: 'Curitiba',
+          estado: 'PR',
+        },
+      },
+      imobiliaria: {
+        connect: {
+          id: imobiliaria.id,
+        },
+      },
+    },
+  })
+
+  const imovel2 = await prisma.imovel.create({
+    data: {
+      nome: 'Noah',
+      areaPrivada: 248,
+      numQuartos: 4,
+      numVagas: 3,
+      tipo: 'APARTAMENTO',
+      endereco: {
+        create: {
+          cep: 87060450,
+          logradouro: 'Av Tiradentes',
+          numero: 1027,
+          bairro: 'Zona 01',
+          complemento: 'Apto 101',
+          cidade: 'Maringá',
+          estado: 'PR',
+        },
+      },
+      imobiliaria: {
+        connect: {
+          id: imobiliaria.id,
+        },
+      },
+      agente: {
+        connect: {
+          id: agente1.id,
+        },
+      },
+    },
+  })
+
+  console.log({
+    cliente1,
+    cliente2,
+    imobiliaria,
+    agente1,
+    agente2,
+    imovel1,
+    imovel2,
+  })
 
   console.log('Finished seeding. 🌱')
 }

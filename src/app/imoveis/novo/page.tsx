@@ -1,0 +1,219 @@
+'use client'
+
+import React, { useState } from 'react'
+import InputField from '@/components/InputField'
+import DropdownButton from '@/components/DropdownButton'
+import DropdownField from '@/components/DropdownField'
+import CustomButton from '@/components/CustomButton'
+import { ArrowLeft } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import ImageField from '@/components/ImageField'
+import { estadosOptions } from '@/utils/estadoOptions'
+import { Endereco } from '@/types/endereco'
+import { ImovelCriar } from '@/types/imovel'
+import { useSession } from 'next-auth/react'
+import { UserRole } from '@/types'
+
+export default function RegistrationForm() {
+  const { data: session } = useSession()
+  const router = useRouter()
+
+  const [selectedOption, setSelectedOption] = useState('PR')
+
+  if (!session) {
+    return <p>Loading...</p>
+  } else if (session.user.role !== UserRole.IMOBILIARIA) {
+    return (
+      <p className="text-red-500">
+        Você não tem permissão para acessar esta página!
+      </p>
+    )
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const form = e.currentTarget
+
+    const nome = (form.elements.namedItem('name') as HTMLInputElement).value
+    const areaPrivada = parseFloat(
+      (form.elements.namedItem('area') as HTMLInputElement).value.replace(
+        ',',
+        '.'
+      )
+    )
+    const numQuartos = (form.elements.namedItem('quartos') as HTMLInputElement)
+      .value
+    const numVagas = (form.elements.namedItem('vagas') as HTMLInputElement)
+      .value
+    const cep = parseInt(
+      (form.elements.namedItem('cep') as HTMLInputElement).value.replace(
+        '-',
+        ''
+      )
+    )
+    const rua = (form.elements.namedItem('rua') as HTMLInputElement).value
+    const bairro = (form.elements.namedItem('bairro') as HTMLInputElement).value
+    const complemento = (
+      form.elements.namedItem('complemento') as HTMLInputElement
+    ).value
+    const estado = selectedOption
+    const cidade = (form.elements.namedItem('cidade') as HTMLInputElement).value
+    const tipo = (form.elements.namedItem('tipo') as HTMLSelectElement).value
+
+    const endereco: Endereco = {
+      cep,
+      logradouro: rua,
+      numero: 123,
+      bairro,
+      complemento,
+      estado,
+      cidade,
+    }
+
+    const novo_imovel: ImovelCriar = {
+      nome,
+      areaPrivada,
+      numQuartos: parseInt(numQuartos),
+      numVagas: parseInt(numVagas),
+      tipo,
+      endereco,
+      imobiliariaId: session.user.id,
+      agenteId: null,
+    }
+
+    try {
+      const response = await fetch('/api/imoveis', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(novo_imovel),
+      })
+
+      if (response.ok) {
+        console.log('Imóvel criado com sucesso!')
+        router.push('/dashboard') //TODO mudar aqui
+      } else {
+        console.error('Erro ao criar imovel:', response.statusText)
+      }
+    } catch (error) {
+      console.error('Erro ao criar imovel:', error)
+    }
+  }
+
+  return (
+    <div className="flex flex-col items-center bg-[#F6F3EC] w-[390px] h-[1147px] mx-auto px-6 py-4">
+      <div className="text-left mt-8 mb-6 w-full">
+        <h1 className="flex items-center text-2xl font-bold mb-[48px] gap-4">
+          <ArrowLeft
+            size={24}
+            className="cursor-pointer"
+            onClick={() => router.back()}
+          />
+          Novo imóvel
+        </h1>
+      </div>
+
+      <form
+        className=" mb-[32px] flex flex-col gap-4 w-full max-w-md"
+        onSubmit={handleSubmit}
+      >
+        <InputField
+          label="Nome do Imóvel:"
+          type="text"
+          name="name"
+          placeholder=""
+          required
+        />
+        <InputField
+          label="Área privada (m²):"
+          type="text"
+          name="area"
+          placeholder=""
+          required
+        />
+        <label className="font-semibold text-base">
+          N° de quartos: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N° de vagas de garagem:
+        </label>
+        <div className="flex gap-4 items-center">
+          <InputField
+            className="w-[120px] h-[56px]"
+            label=""
+            type="number"
+            name="quartos"
+            placeholder=""
+            required
+          />
+          <InputField
+            className="w-[206px] h-[56px]"
+            label=""
+            type="number"
+            name="vagas"
+            placeholder=""
+            required
+          />
+        </div>
+        <InputField
+          label="CEP:"
+          type="text"
+          name="cep"
+          placeholder=""
+          required
+        />
+        <InputField
+          label="Rua:"
+          type="text"
+          name="rua"
+          placeholder=""
+          required
+        />
+        <InputField
+          label="Bairro:"
+          type="text"
+          name="bairro"
+          placeholder=""
+          required
+        />
+        <InputField
+          label="Complemento:"
+          type="text"
+          name="complemento"
+          placeholder=""
+          required
+        />
+        <label className="font-semibold text-base">
+          Estado: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cidade:
+        </label>
+        <div className="flex gap-4 items-center">
+          <DropdownButton
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+            options={estadosOptions}
+          />
+          <InputField
+            label=""
+            type="text"
+            name="cidade"
+            placeholder=""
+            required
+          />
+        </div>
+        <DropdownField
+          className="font-bold"
+          name="tipo"
+          options={['Apartamento', 'Casa', 'Comercial']}
+          placeholder="Tipo Imóvel"
+        />
+        <ImageField
+          className="font-bold"
+          name="add-image"
+          placeholder="Adicione fotos do imóvel"
+        />
+        <div className="mt-4">
+          <CustomButton text="Concluir" type="submit" />
+        </div>
+      </form>
+    </div>
+  )
+}

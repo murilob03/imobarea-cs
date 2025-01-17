@@ -29,7 +29,12 @@ export default function PerfilImobiliaria() {
           />
           <div className="flex flex-col items-center gap-2">
             <h1>Jean Lucas</h1>
-            <p>Agente Imobiliário - <a href="/inicio/imobiliaria" className="text-marrom">Opção Imóveis</a></p>
+            <p>
+              Agente Imobiliário -{' '}
+              <a href="/inicio/imobiliaria" className="text-marrom">
+                Opção Imóveis
+              </a>
+            </p>
           </div>
           <p>Maringá, Paraná</p>
           <div className="flex flex-row items-center gap-1">
@@ -39,7 +44,7 @@ export default function PerfilImobiliaria() {
         </div>
         <h1 className="">Projetos</h1>
       </div>
-      
+
       {/* Botões */}
       {/* <ShowImovel />
       <ShowImovel />

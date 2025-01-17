@@ -1,12 +1,12 @@
-import React from 'react';
-import { LuCirclePlus } from "react-icons/lu"; // Importando o ícone de "+" 
+import React from 'react'
+import { LuCirclePlus } from 'react-icons/lu' // Importando o ícone de "+"
 
 interface ImageFieldProps {
-  label?: string;
-  name: string;
-  onClick?: () => void; // Callback quando o botão é clicado
-  className?: string; // Permitir estilos personalizados
-  placeholder?: string; // Texto no botão
+  label?: string
+  name: string
+  onClick?: () => void // Callback quando o botão é clicado
+  className?: string // Permitir estilos personalizados
+  placeholder?: string // Texto no botão
 }
 
 export default function ImageField({
@@ -30,5 +30,5 @@ export default function ImageField({
         <LuCirclePlus size={24} className="text-black" />
       </button>
     </div>
-  );
+  )
 }

@@ -1,14 +1,14 @@
 import React from 'react'
 
 interface InputFieldProps {
-  label?: string;
-  type: string;
-  name: string;
-  placeholder: string;
-  required?: boolean;
-  className?: string; // Permitir estilos personalizados
-  value?: string; // Adiciona o valor controlado do input
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // Adiciona o evento para capturar mudanças
+  label?: string
+  type: string
+  name: string
+  placeholder: string
+  required?: boolean
+  className?: string // Permitir estilos personalizados
+  value?: string // Adiciona o valor controlado do input
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void // Adiciona o evento para capturar mudanças
 }
 
 export default function InputField({
@@ -17,7 +17,7 @@ export default function InputField({
   name,
   placeholder,
   required,
-  className = "",
+  className = '',
   value,
   onChange,
 }: InputFieldProps) {
