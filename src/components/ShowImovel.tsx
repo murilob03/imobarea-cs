@@ -16,6 +16,7 @@ interface ShowImovelProps {
   builder: string;
   agent: string;
   type: "Apartamento" | "Casa" | "Comercial";
+  image_agent: string;
 }
 
 const ShowImovel: React.FC<ShowImovelProps> = ({
@@ -27,7 +28,8 @@ const ShowImovel: React.FC<ShowImovelProps> = ({
   bedrooms,
   builder,
   agent,
-  type
+  type,
+  image_agent
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -80,7 +82,7 @@ const ShowImovel: React.FC<ShowImovelProps> = ({
               <div className="bg-marrom w-[342px] h-[84px] pt-3 rounded-2xl justify-between ">
                 <div className="flex flex-row gap-3 items-center justify-between ml-2">
                           <Image
-                            src={image}
+                            src={image_agent}
                             alt="Foto do agente"
                             style={{
                               border: '5px solid #9D6F4D',
