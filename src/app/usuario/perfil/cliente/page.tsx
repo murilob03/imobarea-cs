@@ -36,7 +36,7 @@ export default function PerfilCliente() {
       </div>
 
       {/* Botões */}
-      <ShowImovel
+      {/* <ShowImovel
               title={"teste"}
               location={"teste"}
               image={"teste.png"}
@@ -44,7 +44,7 @@ export default function PerfilCliente() {
               garage={2}
               bedrooms={3}
               builder="Construtora XYZ"
-            />
+            /> */}
 
       {/* Rodapé */}
       <Footer activeState="Perfil" />
