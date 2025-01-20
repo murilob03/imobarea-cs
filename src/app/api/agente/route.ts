@@ -1,18 +1,48 @@
 import prisma from '@/db'
 import { AgenteLer } from '@/types/usuarios'
 import { NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../auth/[...nextauth]/route'
 
 // Rota para buscar um agente pelo seu CRECI
 export async function GET(req: Request) {
+  const session = await getServerSession(authOptions)
+
   const { searchParams } = new URL(req.url)
   try {
     const creci = searchParams.get('creci')
 
     if (!creci) {
-      return NextResponse.json(
-        { error: 'Missing creci parameter' },
-        { status: 400 }
-      )
+      // verifica se é uma imobiliária
+      if (!session || !(session.user.role === 'IMOBILIARIA')) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      }
+
+      // recupera o id da imobiliária
+      const imobiliariaId = session.user.id
+
+      // busca todos os agentes da imobiliária
+      const agentes = await prisma.agente.findMany({
+        where: {
+          imobiliariaId: imobiliariaId,
+        },
+        include: {
+          user: true,
+        },
+      })
+
+      const agentes_typed: AgenteLer[] = agentes.map((agente) => ({
+        id: agente.user.id,
+        name: agente.user.name,
+        email: agente.user.email,
+        cpf: agente.cpf,
+        cellphone: agente.user.cellphone,
+        creci: agente.creci,
+        imobiliariaId: agente.imobiliariaId,
+        createdAt: agente.user.createdAt,
+      }))
+
+      return NextResponse.json(agentes_typed)
     }
 
     const agente = await prisma.agente.findFirst({
