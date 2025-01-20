@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
-import { MapPin, PackageX } from 'lucide-react'
 import Image from 'next/image'
+import { AgenteLer } from '@/types/usuarios'
 
-const EditAgente = () => {
+interface EditAgenteProps {
+  agente: AgenteLer
+}
+
+const EditAgente = ({ agente }: EditAgenteProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
   const handleToggle = () => {
@@ -31,8 +35,8 @@ const EditAgente = () => {
           />
         </div>
         <div className="flex w-full flex-col items-start justify-between ml-4">
-          <h3 className="font-bold">Jean Lucas</h3>
-          <p>CRECI: XXXXX</p>
+          <h3 className="font-bold">{agente.name}</h3>
+          <p>CRECI: {agente.creci}</p>
         </div>
       </button>
 

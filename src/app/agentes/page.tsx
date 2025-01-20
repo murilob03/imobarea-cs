@@ -1,22 +1,41 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import CustomButton from '@/components/CustomButton'
-import { Star } from 'lucide-react'
-import Image from 'next/image'
 import Footer from '@/components/Footer'
-import EditAgente from '@/components/EditAgente'
 import { useSession } from 'next-auth/react'
 import { UserRole } from '@/types'
 import Link from 'next/link'
-import AgenteCard from '@/components/AgenteCard'
+import EditAgente from '@/components/EditAgente'
 
-export default async function ListarAgentesCadastrados() {
+export default function ListarAgentesCadastrados() {
   const { data: session } = useSession()
+  const [agentes, setAgentes] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const fetchAgentes = async () => {
+      try {
+        const response = await fetch('/api/agente')
+        if (!response.ok) {
+          throw new Error('Failed to fetch agentes')
+        }
+        const data = await response.json()
+        setAgentes(data)
+      } catch (error) {
+        setError(error.message)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchAgentes()
+  }, [])
 
   if (!session) {
-    return <p>Loading...</p>
+    return <p>Loading session...</p>
   } else if (session.user.role !== UserRole.IMOBILIARIA) {
     return (
       <p className="text-red-500">
@@ -25,12 +44,12 @@ export default async function ListarAgentesCadastrados() {
     )
   }
 
-  let agentes = []
+  if (isLoading) {
+    return <p>Loading agentes...</p>
+  }
 
-  try {
-    agentes = await fetch('/api/agente').then((res) => res.json())
-  } catch (error) {
-    console.error(error)
+  if (error) {
+    return <p className="text-red-500">Error: {error}</p>
   }
 
   return (
@@ -45,15 +64,16 @@ export default async function ListarAgentesCadastrados() {
 
       {/* Lista de Agentes */}
       <div className="flex flex-col gap-6 w-full">
-        {agentes.map((agente) => (
-          <span>{agente.name}</span>
-        ))}
+        {agentes.length > 0 ? (
+          agentes.map((agente, index) => <EditAgente key={index} agente={agente}/>)
+        ) : (
+          <p>No agentes found.</p>
+        )}
       </div>
 
       <CustomButton
         text="Adicionar novo agente"
-        href="/imobiliaria/associar-agentes
-      "
+        href="/imobiliaria/associar-agentes"
       />
       <Footer activeState="Perfil" />
     </div>

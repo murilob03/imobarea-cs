@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../auth/[...nextauth]/route'
 
-// Rota para buscar um agente pelo seu CRECI
+// Rota para buscar um agente pelo seu CRECI ou todos os agente associados a uma imobiliária (se não for passado o CRECI)
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions)
 
