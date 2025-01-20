@@ -91,7 +91,7 @@ const ShowImovel: React.FC<ShowImovelProps> = ({
                             width={60}
                             height={60}
                           />
-                          <h1 className="text-base">Jean Lucas</h1>
+                          <h1 className="text-base">{agent}</h1>
                           <LuMessageCircle size={30} className="mr-2" />
                     </div>
               </div>

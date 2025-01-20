@@ -61,6 +61,7 @@ export default function UserHome() {
             builder="Construtora XYZ"
             agent="Agente XYZ"
             type='Apartamento'
+            image_agent={caminho da imagem do agente}
           /> */}
           </div>
         </div>
