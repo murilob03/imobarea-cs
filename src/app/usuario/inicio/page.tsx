@@ -58,8 +58,10 @@ export default function UserHome() {
             area = {100} 
             garage={2} 
             bedrooms={3} 
-            builder="Construtora XYZ" 
-          />} */}
+            builder="Construtora XYZ"
+            agent="Agente XYZ"
+            type='Apartamento'
+          /> */}
           </div>
         </div>
       </div>
