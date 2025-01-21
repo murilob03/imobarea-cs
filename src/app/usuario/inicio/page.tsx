@@ -6,20 +6,24 @@ import InputField from '@/components/InputField'
 import { Search } from 'lucide-react'
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
+import { ImovelLer } from '@/types/usuarios'
 
 export default function UserHome() {
   const router = useRouter()
 
-  // Dados de exemplo dos imóveis
-  const imoveis = [
-    {
-      id: 1,
-      title: 'Noah',
-      location: 'Tiradentes - zona 1, Maringá - PR',
-      image: 'https://via.placeholder.com/342x140',
-    },
-    // Adicione mais imóveis conforme necessário
-  ]
+  const imovelExemplo: ImovelLer = {
+    id: '1',
+    title: 'Apartamento Moderno',
+    location: 'Av. Paulista, São Paulo, SP',
+    image: '/apartamento.jpg',
+    area: 75,
+    garage: 1,
+    bedrooms: 2,
+    builder: 'Construtora XYZ',
+    agent: 'João Silva',
+    type: 'Apartamento',
+    image_agent: '/joao_silva.jpg',
+  }
 
   return (
     <div className="flex h-screen flex-col items-center bg-bege">
@@ -50,16 +54,7 @@ export default function UserHome() {
 
           {/* Div de imóveis populares com margem acima e abaixo */}
           <div className="flex flex-wrap gap-4 overflow-y-auto max-h-[calc(100vh-350px)] w-full my-6">
-            {/* <ShowImovel
-            title={imoveis[0].title}
-            location={imoveis[0].location}
-            image={imoveis[0].image}
-            // exemplo
-            area = {100} 
-            garage={2} 
-            bedrooms={3} 
-            builder="Construtora XYZ" 
-          />} */}
+            <ShowImovel imovel={imovelExemplo} />
           </div>
         </div>
       </div>
