@@ -66,6 +66,7 @@ model Imovel {
     enderecoId    String
     imobiliariaId String
     agenteId      String?
+    escondido     Boolean @default(false)
 
     imobiliaria Imobiliaria @relation(fields: [imobiliariaId], references: [id])
     endereco    Endereco    @relation(fields: [enderecoId], references: [id])
