@@ -205,6 +205,12 @@ export default function RegistrationForm() {
           options={['Apartamento', 'Casa', 'Comercial']}
           placeholder="Tipo Imóvel"
         />
+        <DropdownField
+          className="font-bold"
+          name="agentes"
+          options={['Agente 10', 'Agente 12', 'Agente 07']}
+          placeholder="Agentes"
+        />
         <ImageField
           className="font-bold"
           name="add-image"

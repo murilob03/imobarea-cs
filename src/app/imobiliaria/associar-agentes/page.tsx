@@ -28,10 +28,6 @@ export default function AssociarAgente() {
     )
   }
 
-  const handleContinue = async () => {
-    router.push('/dashboard') // TODO ver se vai ser isso mesmo
-  }
-
   const handleSearch = async () => {
     setHasSearched(true)
     setAgente(null)
@@ -187,7 +183,9 @@ export default function AssociarAgente() {
         <div className="flex flex-col">
           <CustomButton
             text="Continuar"
-            onClick={handleContinue}
+            onClick={() => {
+              router.push('/inicio')
+            }}
             type="button"
           />
         </div>

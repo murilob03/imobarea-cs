@@ -46,9 +46,6 @@ const EditAgente = ({ agente }: EditAgenteProps) => {
           <button className="flex w-full py-3 justify-center bg-white rounded-full shadow-md">
             Excluir
           </button>
-          <button className="flex w-full py-3 justify-center bg-marrom rounded-full text-white shadow-md">
-            Editar
-          </button>
         </div>
       )}
     </div>
