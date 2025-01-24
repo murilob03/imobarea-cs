@@ -11,3 +11,7 @@ export interface ImovelCriar {
   imobiliariaId: string
   agenteId: string | null
 }
+
+export interface ImovelLer extends ImovelCriar {
+  id: string
+}
