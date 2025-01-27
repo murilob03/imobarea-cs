@@ -1,18 +1,21 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 import CustomButton from '@/components/CustomButton'
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 import Link from 'next/link'
 import ProfileHeader from './components/ProfileHeader'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import { ImovelLer } from '@/types/imovel'
+
 
 export default function Perfil() {
   const { data: session } = useSession()
   const [imoveis, setImoveis] = useState([] as ImovelLer[])
+  const router = useRouter()
 
   const isLoading = !session
 
@@ -51,6 +54,11 @@ export default function Perfil() {
       break
     default:
       break
+  }
+
+  const handleSignOut = async () => {
+    await signOut({ redirect: false }) // Desabilitar o redirecionamento automático do NextAuth
+    router.push('/login') // Redirecionar manualmente para /login
   }
 
   return (
@@ -99,7 +107,12 @@ export default function Perfil() {
           </>
         ) : null}
       </div>
-
+      <button
+        className="flex justify-center items-center text-xs rounded-full transition-all duration-300 bg-marrom"
+        onClick={handleSignOut}
+      >
+        <p className="text-white font-bold px-8 py-2">Sair</p>
+      </button>
       <Footer activeState="Perfil" />
     </div>
   )
