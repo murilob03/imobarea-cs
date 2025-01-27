@@ -13,7 +13,7 @@ export default function PerfilImobiliaria() {
     <div className="flex p-[64px_24px] flex-col items-center gap-8 w-full justify-between">
       {/* Conteúdo Superior */}
       <div className="flex flex-col gap-6 w-full">
-        <a href="/usuario/inicio">
+        <a href="/inicio">
           <ArrowLeft size={32} color="black" />
         </a>
         <div className="flex flex-col items-center gap-5">

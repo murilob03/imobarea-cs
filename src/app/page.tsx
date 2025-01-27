@@ -1,12 +1,20 @@
 import Image from 'next/image'
 import CustomButton from '@/components/CustomButton'
+import { authOptions } from './api/auth/[...nextauth]/route'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions)
+
+  if (session) {
+    redirect('/inicio')
+  }
+
   return (
     <div className="flex h-screen flex-col items-center self-stretch p-[64px_24px] justify-between flex-shrink-0">
       <div className="flex flex-col gap-px-100 items-center self-stretch">
         <Image
-          // className="dark:invert"
           src="/imobilearea_logo.svg"
           alt="imobilearea logo"
           width={249.74}

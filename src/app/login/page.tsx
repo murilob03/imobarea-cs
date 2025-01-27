@@ -40,7 +40,7 @@ export default function SignIn() {
         router.push(callbackUrl)
         return
       }
-      router.push('/usuario/inicio')
+      router.push('/inicio')
     }
   }
 

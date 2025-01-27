@@ -12,15 +12,13 @@ const Footer = ({ activeState }: FooterProps) => {
   const role = session?.user?.role // Obtém a role do usuário autenticado
   let destination = '/login' // Valor padrão para usuários não autenticados
 
-  if (role === 'AGENTE') destination = '/usuario/perfil/agente'
-  else if (role === 'IMOBILIARIA') destination = '/usuario/perfil/imobiliaria'
-  else if (role === 'CLIENTE') destination = '/usuario/perfil/cliente'
+  if (session) destination = '/perfil'
 
   return (
     <div className="fixed bottom-0 bg-bege flex justify-between items-center w-[390px] p-8">
       {/* Início */}
       <a
-        href="/usuario/inicio"
+        href="/inicio"
         className={`flex w-[40px] text-center justify-center flex-col items-center ${
           activeState === 'Início' ? 'text-marrom' : 'text-black-600'
         }`}

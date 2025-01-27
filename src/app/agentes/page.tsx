@@ -24,7 +24,7 @@ export default function ListarAgentesCadastrados() {
         }
         const data = await response.json()
         setAgentes(data)
-      } catch (error) {
+      } catch (error: any) {
         setError(error.message)
       } finally {
         setIsLoading(false)
@@ -56,7 +56,7 @@ export default function ListarAgentesCadastrados() {
     <div className="flex p-[64px_24px] mb-[100px] flex-col items-center gap-8 w-full justify-between">
       {/* Conteúdo Superior */}
       <div className="flex gap-6 items-center w-full">
-        <Link href="/usuario/inicio">
+        <Link href="/inicio">
           <ArrowLeft size={32} color="black" />
         </Link>
         <h1 className="">Agentes Cadastrados</h1>
@@ -65,7 +65,9 @@ export default function ListarAgentesCadastrados() {
       {/* Lista de Agentes */}
       <div className="flex flex-col gap-6 w-full">
         {agentes.length > 0 ? (
-          agentes.map((agente, index) => <EditAgente key={index} agente={agente}/>)
+          agentes.map((agente, index) => (
+            <EditAgente key={index} agente={agente} />
+          ))
         ) : (
           <p>No agentes found.</p>
         )}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { LuCirclePlus } from 'react-icons/lu' // Importando o ícone de "+"
+import { CirclePlus } from 'lucide-react' // Importando o ícone de "+"
 
 interface ImageFieldProps {
   label?: string
@@ -27,7 +27,7 @@ export default function ImageField({
       >
         <span>{placeholder}</span> {/* Texto do botão */}
         {/* Ícone de "+" */}
-        <LuCirclePlus size={24} className="text-black" />
+        <CirclePlus size={24} className="text-black" />
       </button>
     </div>
   )
