@@ -1,50 +1,102 @@
 'use client'
 
-import { useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import InputField from '@/components/InputField'
 import { Search, CircleX, SlidersHorizontal, ArrowLeft } from 'lucide-react'
 import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
+import { useSession } from 'next-auth/react'
+import { ImovelLer } from '@/types/imovel'
+import ImovelPage from '@/app/imoveis/[id]/page'
 
 export default function Busca() {
+  const { data: session } = useSession()
   const router = useRouter()
-
-  // Estado para armazenar o valor do input
   const [inputValue, setInputValue] = useState('')
+  const [imoveis, setImoveis] = useState<ImovelLer[]>([])
+  const [visibleImoveis, setVisibleImoveis] = useState<ImovelLer[]>([])
+  const [loading, setLoading] = useState(true)
 
-  // Dados de exemplo dos imóveis
-  const imoveis = [
-    {
-      id: 1,
-      title: 'Noah',
-      location: 'Tiradentes - zona 1, Maringá - PR',
-      rating: 4.0,
-      image: 'https://via.placeholder.com/342x140',
-    },
-    // Adicione mais imóveis conforme necessário
-  ]
+  // Set loading to false once session is available
+  useEffect(() => {
+    if (session) {
+      setLoading(false)
+    }
+  }, [session])
 
-  // Função para limpar o campo de entrada
+  // Fetch imóveis (properties)
+  const fetchImoveis = async () => {
+    try {
+      const res = await fetch('/api/imoveis', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const data = await res.json()
+      setImoveis(data || [])
+      setVisibleImoveis(imoveis)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  // Fetch imóveis when the component mounts or when session changes
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetchImoveis()
+    }
+  }, [session])
+
+  // Function to clear the input field
   const clearInput = () => {
     setInputValue('')
   }
 
+  const filterImoveis = () => {
+    if (!inputValue) {
+      setVisibleImoveis(imoveis)
+      return
+    }
+    const filteredImoveis = imoveis.filter(
+      (imovel) =>
+        imovel.nome.toLowerCase().includes(inputValue.toLowerCase()) ||
+        imovel.tipo.toLowerCase().includes(inputValue.toLowerCase()) ||
+        imovel.endereco.cidade
+          .toLowerCase()
+          .includes(inputValue.toLowerCase()) ||
+        imovel.endereco.estado
+          .toLowerCase()
+          .includes(inputValue.toLowerCase()) ||
+        imovel.endereco.logradouro
+          .toLowerCase()
+          .includes(inputValue.toLowerCase())
+    )
+    setVisibleImoveis(filteredImoveis)
+  }
+
+  useEffect(() => {
+    filterImoveis()
+  }, [inputValue])
+
+  if (loading) return <p>Carregando...</p>
+
   return (
     <div className="flex h-screen flex-col items-center bg-bege">
-      <div className="flex p-[64px_24px] flex-col w-full justify-between">
-        <div>
-          {/* Cabeçalho com seta e título */}
-          <h1 className="flex items-center text-2xl font-bold mb-[48px] gap-4">
-            <ArrowLeft
-              size={24}
-              className="cursor-pointer"
-              onClick={() => router.back()}
-            />
-            Busca
-          </h1>
+      <div className="flex p-[64px_24px] flex-col w-full justify-between pb-36 gap-4">
+        {/* Header with back arrow and title */}
+        <h1 className="flex items-center text-2xl font-bold mb-6 gap-4">
+          <ArrowLeft
+            size={24}
+            className="cursor-pointer"
+            onClick={() => router.back()}
+          />
+          Busca
+        </h1>
 
-          {/* Campo de entrada com ícones */}
+        {/* Input field with icons */}
+        <div>
           <div className="flex items-center relative">
             <InputField
               label=""
@@ -53,19 +105,19 @@ export default function Busca() {
               placeholder=""
               required
               className="pl-14 placeholder:text-black text-base"
-              value={inputValue} // Controla o valor do input pelo estado
-              onChange={(e) => setInputValue(e.target.value)} // Atualiza o estado quando o usuário digita
+              value={inputValue} // Controlled input value
+              onChange={(e) => setInputValue(e.target.value)} // Update state on input change
             />
             <Search size={24} className="absolute left-6" />
             <CircleX
               size={24}
               className="absolute right-6 cursor-pointer"
-              onClick={clearInput} // Limpa o campo ao clicar
+              onClick={clearInput} // Clear input field
             />
           </div>
 
-          {/* Botão Filtrar */}
-          <div className="flex justify-end mt-4">
+          {/* Filter button */}
+          <div className="flex justify-end">
             <button
               className="flex items-center gap-2 text-base font-semibold px-4 py-2"
               onClick={() => router.push('/usuario/busca/filtro')}
@@ -74,22 +126,18 @@ export default function Busca() {
               filtrar
             </button>
           </div>
-
-          {/* Div de imóveis populares */}
-          <div className="flex flex-wrap gap-4 overflow-y-auto max-h-[calc(100vh-350px)] w-full my-6">
-            {/* Exemplo de como os imóveis serão renderizados */}
-            {/* <ShowImovel
-              title={imoveis[0].title}
-              location={imoveis[0].location}
-              rating={imoveis[0].rating}
-              image={imoveis[0].image}
-              area={100}
-              garage={2}
-              bedrooms={3}
-              builder="Construtora XYZ"
-            /> */}
-          </div>
         </div>
+
+        {/* Popular properties section */}
+
+        {/* Render properties */}
+        {visibleImoveis.length > 0 ? (
+          visibleImoveis.map((imovel) => (
+            <ShowImovel key={imovel.id} imovel={imovel} />
+          ))
+        ) : (
+          <p>Nenhum imóvel encontrado</p>
+        )}
       </div>
       <Footer activeState="Buscar" />
     </div>
