@@ -1,4 +1,6 @@
 import { Endereco } from '@/types/endereco'
+import { AgenteLer } from './usuarios'
+import { UserLer } from '.'
 
 export interface ImovelCriar {
   nome: string
@@ -7,6 +9,8 @@ export interface ImovelCriar {
   numVagas: number
   tipo: string
   endereco: Endereco
+  agente: any
+  imobiliaria: any
 
   imobiliariaId: string
   agenteId: string | null
