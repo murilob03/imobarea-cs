@@ -1,3 +1,12 @@
+import { UserRole } from "."
+
+export interface UsuarioLer {
+  id: string
+  name: string
+  email: string
+  role: UserRole
+}
+
 export interface ClienteLer {
   id: string
   name: string

@@ -1,5 +1,8 @@
-'use client'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]/route'
+import { redirect } from 'next/navigation'
 
+<<<<<<< HEAD
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
@@ -116,4 +119,14 @@ export default function Perfil() {
       <Footer activeState="Perfil" />
     </div>
   )
+=======
+export default async function Page() {
+  const session = await getServerSession(authOptions)
+
+  if (session) {
+    redirect(`/perfil/${session.user.id}`)
+  }
+
+  return <></>
+>>>>>>> d1841d2 (mudei para conseguir ver o perfil de outros usuarios e nao apenas o usuario logado)
 }
