@@ -1,7 +1,9 @@
-import React from 'react'
+'use client'
+
+import React, { useState, useEffect } from 'react'
 import { Heart, MapPin } from 'lucide-react'
 import Image from 'next/image'
-import { ImovelLer } from '@/types/imovel' // Importamos a nova interface
+import { ImovelLer } from '@/types/imovel' // Importamos a interface
 import { useRouter } from 'next/navigation'
 
 interface ShowImovelProps {
@@ -9,80 +11,61 @@ interface ShowImovelProps {
 }
 
 const ShowImovel: React.FC<ShowImovelProps> = ({ imovel }) => {
+  const [favorito, setFavorito] = useState<boolean>(false) // Estado para controlar o favorito
   const router = useRouter()
-  //   const [isExpanded, setIsExpanded] = useState(false)
 
-  //   if (isExpanded) {
-  //     return (
-  //       <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-  //         <div className="w-full h-full bg-bege overflow-y-auto relative">
-  //           <div className="relative w-full h-64">
-  //             <Image
-  //               src="/Noah.png"
-  //               alt="Foto do imóvel"
-  //               width={342}
-  //               height={235}
-  //               className="w-full h-full object-cover"
-  //             />
-  //             <button
-  //               className="absolute top-4 left-4 text-black"
-  //               onClick={() => setIsExpanded(false)}
-  //             >
-  //               <ArrowLeft size={24} />
-  //             </button>
-  //           </div>
-  //           <div className="p-6">
-  //             <SmallButton text={imovel.tipo} isSelected={true} />
-  //             <h3 className="text-2xl font-bold text-gray-800 mt-[16px]">
-  //               {imovel.nome}
-  //             </h3>
-  //             <div className="mt-4 text-xs space-y-4">
-  //               <p className="flex items-center">
-  //                 <MapPin size={16} className="mr-2 " />
-  //                 {imovel.endereco.logradouro}, {imovel.endereco.numero} -{' '}
-  //               </p>
-  //               <p className="flex items-center">
-  //                 <Bed size={16} className="mr-2 " />
-  //                 Quartos: {imovel.numQuartos}
-  //               </p>
-  //               <p className="flex items-center">
-  //                 <Ruler size={16} className="mr-2 " />
-  //                 Área Privativa: {imovel.areaPrivada}m²
-  //               </p>
-  //               <p className="flex items-center">
-  //                 <Car size={16} className="mr-2 " />
-  //                 Vagas na garagem: {imovel.numVagas}
-  //               </p>
-  //               <p className="flex items-center">
-  //                 <Briefcase size={16} className="mr-2 " />
-  //                 Construtora: Imobile
-  //               </p>
-  //               <label className="block font-bold">
-  //                 Agente Imobiliário Responsável
-  //               </label>
-  //               <div className="bg-marrom w-[342px] h-[84px] pt-3 rounded-2xl justify-between ">
-  //                 <div className="flex flex-row gap-3 items-center justify-between ml-2">
-  //                   <Image
-  //                     src="/koreano.png"
-  //                     alt="Foto do agente"
-  //                     style={{
-  //                       border: '5px solid #9D6F4D',
-  //                       borderRadius: '50%',
-  //                     }}
-  //                     width={60}
-  //                     height={60}
-  //                   />
-  //                   <h1 className="text-base">{imovel.nomeAgente}</h1>
-  //                   <MessageCircle size={30} className="mr-2" />
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //         <Footer activeState="Início" />
-  //       </div>
-  //     )
-  //   }
+  // Função para alternar o estado de favorito
+  const toggleFavorito = async () => {
+    try {
+      const response = await fetch('/api/favoritos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ imovelId: imovel.id }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setFavorito(!favorito) // Alternar o estado do favorito após sucesso
+      } else {
+        console.error('Erro ao atualizar favorito:', data.error)
+      }
+    } catch (error) {
+      console.error('Erro ao favoritar imóvel:', error)
+    }
+  }
+
+  // Função para verificar se o imóvel já é favoritado
+  const verificarFavorito = async () => {
+    try {
+      const response = await fetch('/api/favoritos', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      const favoritos = await response.json()
+
+      if (response.ok) {
+        const jaFavoritado = favoritos.some(
+          (fav: { id: string }) => fav.id === imovel.id
+        )
+        setFavorito(jaFavoritado) // Define se o imóvel está favoritado
+      } else {
+        console.error('Erro ao verificar favoritos:', favoritos.error)
+      }
+    } catch (error) {
+      console.error('Erro ao verificar favoritos:', error)
+    }
+  }
+
+  // Usar useEffect para verificar o estado inicial do favorito (quando o componente for montado)
+  useEffect(() => {
+    verificarFavorito() // Verifica se o imóvel já é favoritado ao carregar o componente
+  }, [imovel.id])
 
   return (
     <div
@@ -97,8 +80,14 @@ const ShowImovel: React.FC<ShowImovelProps> = ({ imovel }) => {
           alt="Foto do imóvel"
           className="w-full h-full object-cover"
         />
-        <div className="absolute top-2 right-2 bg-white rounded-full p-1 shadow">
-          <Heart size={16} className="text-gray-600" />
+        <div
+          className="absolute top-2 right-2 bg-white rounded-full p-1 shadow cursor-pointer"
+          onClick={toggleFavorito} // Chama a função para alternar o favorito
+        >
+          <Heart
+            size={16}
+            className={favorito ? 'text-red-500' : 'text-gray-600'} // Altera a cor do coração com base no estado
+          />
         </div>
       </div>
       <div className="absolute bottom-0 w-full bg-gradient-to-t from-marrom to-marrom text-white p-4 h-[75px]">

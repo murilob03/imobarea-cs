@@ -22,6 +22,8 @@ model User {
     Cliente     Cliente?
     Agente      Agente?
     Imobiliaria Imobiliaria?
+
+    favoritos   Favorito[] 
 }
 
 model Cliente {
@@ -71,6 +73,8 @@ model Imovel {
     imobiliaria Imobiliaria @relation(fields: [imobiliariaId], references: [id])
     endereco    Endereco    @relation(fields: [enderecoId], references: [id])
     agente      Agente?     @relation(fields: [agenteId], references: [id])
+
+    favoritos    Favorito[]
 }
 
 model Endereco {
@@ -84,4 +88,16 @@ model Endereco {
     estado      String
 
     Imovel Imovel[] // One-to-many relationship with Imovel
+}
+
+model Favorito {
+  id       String  @id @default(uuid())
+  userId   String
+  imovelId String
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  imovel Imovel @relation(fields: [imovelId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, imovelId]) // Garante que um usuário não pode favoritar o mesmo imóvel mais de uma vez
 }

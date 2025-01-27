@@ -72,22 +72,27 @@ export default function ImovelPage() {
             <label className="block font-bold">
               Agente Imobiliário Responsável
             </label>
-            <div className="bg-marrom w-[342px] h-[84px] pt-3 rounded-2xl justify-between ">
-              <div className="flex flex-row gap-3 items-center justify-between ml-2">
-                <Image
-                  src="/koreano.png"
-                  alt="Foto do agente"
-                  style={{
-                    border: '5px solid #9D6F4D',
-                    borderRadius: '50%',
-                  }}
-                  width={60}
-                  height={60}
-                />
-                <h1 className="text-base">{imovel.agente.user.name}</h1>
-                <MessageCircle size={30} className="mr-2" />
+            {/* Verificação se o agente imobiliário existe */}
+            {imovel.agente ? (
+              <div className="bg-marrom w-[342px] h-[84px] pt-3 rounded-2xl justify-between ">
+                <div className="flex flex-row gap-3 items-center justify-between ml-2">
+                  <Image
+                    src="/koreano.png"
+                    alt="Foto do agente"
+                    style={{
+                      border: '5px solid #9D6F4D',
+                      borderRadius: '50%',
+                    }}
+                    width={60}
+                    height={60}
+                  />
+                  <h1 className="text-base">{imovel.agente.user.name}</h1>
+                  <MessageCircle size={30} className="mr-2" />
+                </div>
               </div>
-            </div>
+            ) : (
+              <p className="text-gray-600">Não há agente imobiliário.</p>
+            )}
           </div>
         </div>
       </div>
