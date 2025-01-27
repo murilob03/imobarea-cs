@@ -21,13 +21,13 @@ export default function ImovelPage() {
 
       const data = await response.json()
       setImovel(data[0])
-      console.log(data)
+      console.log(data[0])
     }
 
     fetchImovel()
   }, [params.id])
 
-  if (!imovel) {
+  if (!imovel.id) {
     return <p>Loading imovel...</p>
   }
 
@@ -67,7 +67,7 @@ export default function ImovelPage() {
             </p>
             <p className="flex items-center">
               <Briefcase size={16} className="mr-2 " />
-              Imobiliária: Imobile
+              Imobiliária: {imovel.imobiliaria.user.name}
             </p>
             <label className="block font-bold">
               Agente Imobiliário Responsável
@@ -84,7 +84,7 @@ export default function ImovelPage() {
                   width={60}
                   height={60}
                 />
-                <h1 className="text-base">Koreano</h1>
+                <h1 className="text-base">{imovel.agente.user.name}</h1>
                 <MessageCircle size={30} className="mr-2" />
               </div>
             </div>

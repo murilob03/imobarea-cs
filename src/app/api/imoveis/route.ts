@@ -13,10 +13,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  let whereClause: Record<string, any> = { escondido: false }
+
   const { searchParams } = new URL(req.url)
   const query = searchParams.get('query')
 
-  let notHiddenImoveis = []
+  let notHiddenImoveis: ImovelLer[] = []
   if (query) {
     const [field, value] = query.split(':')
 
@@ -27,49 +29,29 @@ export async function GET(req: NextRequest) {
       )
     }
 
-    notHiddenImoveis = await prisma.imovel.findMany({
-      where: {
-        [field]: value,
-        escondido: false,
-      },
-      include: {
-        endereco: true,
-        agente: true,
-        imobiliaria: true,
-      },
-    })
-  } else {
-    notHiddenImoveis = await prisma.imovel.findMany({
-      where: {
-        escondido: false,
-      },
-      include: {
-        endereco: true,
-        agente: true,
-        imobiliaria: true,
-      },
-    })
+    whereClause[field] = value
   }
 
-  let hiddenImoveis = []
+  notHiddenImoveis = await prisma.imovel.findMany({
+    where: whereClause,
+    include: {
+      endereco: true,
+      agente: { include: { user: true } },
+      imobiliaria: { include: { user: true } },
+    },
+  })
+
+  let hiddenImoveis: ImovelLer[] = []
+  whereClause['escondido'] = true
   if (session.user.role === 'IMOBILIARIA') {
-    hiddenImoveis = await prisma.imovel.findMany({
-      where: {
-        imobiliariaId: session.user.id,
-        escondido: true,
-      },
-      include: {
-        endereco: true,
-        agente: true,
-        imobiliaria: true,
-      },
-    })
+    whereClause['imobiliariaId'] = session.user.id
   } else if (session.user.role === 'AGENTE') {
+    whereClause['agenteId'] = session.user.id
+  }
+
+  if (session.user.role === 'IMOBILIARIA' || session.user.role === 'AGENTE') {
     hiddenImoveis = await prisma.imovel.findMany({
-      where: {
-        agenteId: session.user.id,
-        escondido: true,
-      },
+      where: whereClause,
       include: {
         endereco: true,
         agente: true,
@@ -80,21 +62,21 @@ export async function GET(req: NextRequest) {
 
   const imoveis = notHiddenImoveis.concat(hiddenImoveis)
 
-  const imoveisTipados: ImovelLer[] = imoveis.map((imovel) => {
-    return {
-      id: imovel.id,
-      nome: imovel.nome,
-      areaPrivada: imovel.areaPrivada,
-      numQuartos: imovel.numQuartos,
-      numVagas: imovel.numVagas,
-      tipo: imovel.tipo,
-      endereco: imovel.endereco,
-      imobiliariaId: imovel.imobiliariaId,
-      agenteId: imovel.agenteId,
-    }
-  })
+  //   const imoveisTipados: ImovelLer[] = imoveis.map((imovel) => {
+  //     return {
+  //       id: imovel.id,
+  //       nome: imovel.nome,
+  //       areaPrivada: imovel.areaPrivada,
+  //       numQuartos: imovel.numQuartos,
+  //       numVagas: imovel.numVagas,
+  //       tipo: imovel.tipo,
+  //       endereco: imovel.endereco,
+  //       imobiliariaId: imovel.imobiliariaId,
+  //       agenteId: imovel.agenteId,
+  //     }
+  //   })
 
-  return NextResponse.json(imoveisTipados)
+  return NextResponse.json(notHiddenImoveis.concat(hiddenImoveis))
 }
 
 // Rota para criar um imóvel
