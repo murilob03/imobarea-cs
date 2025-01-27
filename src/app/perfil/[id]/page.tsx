@@ -155,12 +155,14 @@ export default function Perfil() {
         ) : null}
       </div>
 
-      <button
-        className="flex justify-center items-center text-xs rounded-full transition-all duration-300 bg-marrom"
-        onClick={handleSignOut}
-      >
-        <p className="text-white font-bold px-8 py-2">Sair</p>
-      </button>
+      {isOwner ? (
+        <button
+          className="flex justify-center items-center text-xs rounded-full transition-all duration-300 bg-marrom"
+          onClick={handleSignOut}
+        >
+          <p className="text-white font-bold px-8 py-2">Sair</p>
+        </button>
+      ) : null}
 
       <Footer activeState="Perfil" />
     </div>
