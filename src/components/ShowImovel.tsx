@@ -104,6 +104,7 @@ const ShowImovel: React.FC<ShowImovelProps> = ({ imovel }) => {
       <div className="absolute bottom-0 w-full bg-gradient-to-t from-marrom to-marrom text-white p-4 h-[75px]">
         <div className="flex justify-between items-center">
           <h3 className="text-base font-bold truncate">{imovel.nome}</h3>
+          <h3 className="text-base font-bold truncate">R${imovel.valor}</h3>
         </div>
         <div className="flex items-center text-sm mt-1">
           <MapPin size={16} className="mr-1" />

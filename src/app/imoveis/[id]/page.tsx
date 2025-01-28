@@ -1,15 +1,23 @@
 'use client'
 
 import Image from 'next/image'
-import { Bed, Briefcase, Car, MapPin, MessageCircle, Ruler } from 'lucide-react'
-import SmallButton from '@/components/SmallButton'
+import {
+  ArrowLeft,
+  Bed,
+  Briefcase,
+  Car,
+  MapPin,
+  MessageCircle,
+  Ruler,
+} from 'lucide-react'
 import Footer from '@/components/Footer'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { ImovelLer } from '@/types/imovel'
 
 export default function ImovelPage() {
   const params = useParams<{ id: string }>()
+  const router = useRouter() // Hook correto para navegação no cliente
   const [imovel, setImovel] = useState({} as ImovelLer)
 
   useEffect(() => {
@@ -35,6 +43,7 @@ export default function ImovelPage() {
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="w-full h-full bg-bege overflow-y-auto relative">
         <div className="relative w-full h-64">
+          {/* Imagem */}
           <Image
             src="/noah.jpg"
             alt="Foto do imóvel"
@@ -42,6 +51,15 @@ export default function ImovelPage() {
             height={235}
             className="w-full h-full object-cover"
           />
+          {/* Botão ArrowLeft reposicionado */}
+          <div className="absolute top-4 left-4">
+            <button
+              className="w-10 h-10 flex items-center justify-center bg-black bg-opacity-70 rounded-full"
+              onClick={() => router.back()} // Navega de volta para a página anterior
+            >
+              <ArrowLeft size={24} className="text-white" />
+            </button>
+          </div>
         </div>
         <div className="p-6">
           <div className="flex gap-4">
