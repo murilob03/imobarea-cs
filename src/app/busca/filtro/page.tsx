@@ -14,11 +14,13 @@ export default function Filter() {
     tamanho: string
     numero: string
     valor: string
+    tipoOferta: string
   }>({
     categoria: '',
     tamanho: '',
     numero: '',
     valor: '',
+    tipoOferta: '',
   })
 
   // Função para redefinir os valores dos filtros
@@ -28,6 +30,7 @@ export default function Filter() {
       tamanho: '',
       numero: '',
       valor: '',
+      tipoOferta: '',
     })
   }
 
@@ -72,6 +75,7 @@ export default function Filter() {
     tamanho: string
     numero: string
     valor: string
+    tipoOferta: string
   }) => {
     const tamanhoOption = tamanhoOptions.find(
       (option) => option.label === filters.tamanho
@@ -87,6 +91,7 @@ export default function Filter() {
       numQuartos: filters.numero || null,
       minValor: valorOption?.min || null,
       maxValor: valorOption?.max || null,
+      tipoOferta: filters.tipoOferta || null,
     }
 
     // Remove null or undefined values from the object
@@ -98,7 +103,7 @@ export default function Filter() {
   }
 
   const handleFiltrar = () => {
-      const processedFilters = processFilters(filters)
+    const processedFilters = processFilters(filters)
     router.push(`/busca?${new URLSearchParams(processedFilters).toString()}`)
   }
 
@@ -106,7 +111,13 @@ export default function Filter() {
     <div className="flex h-screen flex-col items-center bg-bege">
       <div className="p-[64px_24px] flex flex-col w-full justify-between">
         <div className="flex justify-end w-full mb-[16px]">
-          <X size={24} className="" onClick={() => {router.back()}} />
+          <X
+            size={24}
+            className=""
+            onClick={() => {
+              router.back()
+            }}
+          />
         </div>
         <div className="flex justify-between items-center w-full">
           <h1 className="text-2xl font-bold">Filtrar por</h1>
@@ -149,6 +160,15 @@ export default function Filter() {
             value={filters.valor}
             onChange={(value) =>
               setFilters((prev) => ({ ...prev, valor: value.toString() }))
+            }
+          />
+          <DropdownField
+            name="tipoOferta"
+            options={['Venda', 'Aluguel']}
+            placeholder="Tipo da Oferta"
+            value={filters.tipoOferta}
+            onChange={(value) =>
+              setFilters((prev) => ({ ...prev, tipoOferta: value.toString() }))
             }
           />
           <CustomButton text="Filtrar" onClick={handleFiltrar} />

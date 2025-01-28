@@ -1,15 +1,23 @@
 'use client'
 
 import Image from 'next/image'
-import { Bed, Briefcase, Car, MapPin, MessageCircle, Ruler } from 'lucide-react'
-import SmallButton from '@/components/SmallButton'
+import {
+  ArrowLeft,
+  Bed,
+  Briefcase,
+  Car,
+  MapPin,
+  MessageCircle,
+  Ruler,
+} from 'lucide-react'
 import Footer from '@/components/Footer'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { ImovelLer } from '@/types/imovel'
 
 export default function ImovelPage() {
   const params = useParams<{ id: string }>()
+  const router = useRouter() // Hook correto para navegação no cliente
   const [imovel, setImovel] = useState({} as ImovelLer)
 
   useEffect(() => {
@@ -35,6 +43,7 @@ export default function ImovelPage() {
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="w-full h-full bg-bege overflow-y-auto relative">
         <div className="relative w-full h-64">
+          {/* Imagem */}
           <Image
             src="/noah.jpg"
             alt="Foto do imóvel"
@@ -42,16 +51,41 @@ export default function ImovelPage() {
             height={235}
             className="w-full h-full object-cover"
           />
+          {/* Botão ArrowLeft reposicionado */}
+          <div className="absolute top-4 left-4">
+            <button
+              className="w-10 h-10 flex items-center justify-center bg-black bg-opacity-70 rounded-full"
+              onClick={() => router.back()} // Navega de volta para a página anterior
+            >
+              <ArrowLeft size={24} className="text-white" />
+            </button>
+          </div>
         </div>
         <div className="p-6">
-          <SmallButton text={imovel.tipo} isSelected={true} />
-          <h3 className="text-2xl font-bold text-gray-800 mt-[16px]">
-            {imovel.nome}
-          </h3>
+          <div className="flex gap-4">
+            <div className="flex justify-center items-center text-xs rounded-full bg-transparent text-black border border-black w-[108.67px] h-[45px]">
+              {imovel.tipo}
+            </div>
+            <div className="flex justify-center items-center text-xs rounded-full bg-transparent text-black border border-black w-[108.67px] h-[45px]">
+              {imovel.tipoOferta}
+            </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-gray-800 mt-[16px]">
+              {imovel.nome}
+            </h3>
+            <h3 className="text-base font-bold truncate mt-[16px]">
+              {new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              }).format(imovel.valor)}
+            </h3>
+          </div>
           <div className="mt-4 text-xs space-y-4">
             <p className="flex items-center">
               <MapPin size={16} className="mr-2 " />
-              {imovel.endereco.logradouro} {imovel.endereco.numero}, {imovel.endereco.cidade} - {imovel.endereco.estado}
+              {imovel.endereco.logradouro} {imovel.endereco.numero},{' '}
+              {imovel.endereco.cidade} - {imovel.endereco.estado}
             </p>
             <p className="flex items-center">
               <Bed size={16} className="mr-2 " />

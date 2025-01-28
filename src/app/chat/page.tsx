@@ -1,5 +1,6 @@
 'use client'
 
+import Footer from '@/components/Footer'
 import { Wrench } from 'lucide-react'
 import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -29,6 +30,7 @@ export default function Chat() {
           </p>
         </div>
       </div>
+      <Footer activeState="Chat" />
     </div>
   )
 }
