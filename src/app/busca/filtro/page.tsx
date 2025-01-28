@@ -75,6 +75,7 @@ export default function Filter() {
     tamanho: string
     numero: string
     valor: string
+    tipoOferta: string
   }) => {
     const tamanhoOption = tamanhoOptions.find(
       (option) => option.label === filters.tamanho
@@ -90,7 +91,7 @@ export default function Filter() {
       numQuartos: filters.numero || null,
       minValor: valorOption?.min || null,
       maxValor: valorOption?.max || null,
-      tipoOferrta: filters.tiposOfertas || null,
+      tipoOferta: filters.tipoOferta || null,
     }
 
     // Remove null or undefined values from the object
@@ -102,7 +103,7 @@ export default function Filter() {
   }
 
   const handleFiltrar = () => {
-      const processedFilters = processFilters(filters)
+    const processedFilters = processFilters(filters)
     router.push(`/busca?${new URLSearchParams(processedFilters).toString()}`)
   }
 
@@ -157,11 +158,11 @@ export default function Filter() {
           />
           <DropdownField
             name="tipoOferta"
-            options={valorOptions.map((option) => option.label)}
+            options={['Venda', 'Compra']} 
             placeholder="Tipo da Oferta"
-            value={filters.valor}
+            value={filters.tipoOferta}
             onChange={(value) =>
-              setFilters((prev) => ({ ...prev, valor: value.toString() }))
+              setFilters((prev) => ({ ...prev, tipoOferta: value.toString() }))
             }
           />
           <CustomButton text="Filtrar" onClick={handleFiltrar} />
