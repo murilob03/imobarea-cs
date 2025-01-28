@@ -40,7 +40,7 @@ const Footer = ({ activeState }: FooterProps) => {
 
       {/* Buscar */}
       <a
-        href="/usuario/busca"
+        href="/busca"
         className={`flex w-[40px] text-center justify-center flex-col items-center ${
           activeState === 'Buscar' ? 'text-marrom' : 'text-black-600'
         }`}
@@ -51,7 +51,7 @@ const Footer = ({ activeState }: FooterProps) => {
 
       {/* Chat */}
       <a
-        href="/usuario/chat"
+        href="/chat"
         className={`flex w-[40px] text-center justify-center flex-col items-center ${
           activeState === 'Chat' ? 'text-marrom' : 'text-black-600'
         }`}

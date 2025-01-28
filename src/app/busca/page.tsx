@@ -81,7 +81,7 @@ export default function Busca() {
 
       // Filter by categoria if provided
       const categoriaMatch = params.categoria
-        ? imovel.tipo === params.categoria
+        ? imovel.tipo === params.categoria.toUpperCase()
         : true
 
       // Filter by number of rooms if provided
@@ -99,27 +99,25 @@ export default function Busca() {
         ? imovel.areaPrivada <= parseInt(params.maxTamanho)
         : true
 
+      const minValorMatch = params.minValor
+        ? imovel.valor >= parseInt(params.minValor)
+        : true
+
+      const maxValorMatch = params.maxValor
+        ? imovel.valor <= parseInt(params.maxValor)
+        : true
+
       // Only include properties that match all conditions
       return (
         textMatch &&
         categoriaMatch &&
         numQuartosMatch &&
         minTamanhoMatch &&
-        maxTamanhoMatch
+        maxTamanhoMatch &&
+        minValorMatch &&
+        maxValorMatch
       )
     })
-
-    // if (params.minValor) {
-    //   filteredImoveis = filteredImoveis.filter(
-    //     (imovel) => imovel.valor >= parseInt(params.minValor)
-    //   )
-    // }
-
-    // if (params.maxValor) {
-    //   filteredImoveis = filteredImoveis.filter(
-    //     (imovel) => imovel.valor <= parseInt(params.maxValor)
-    //   )
-    // }
 
     setVisibleImoveis(filteredImoveis)
   }
@@ -176,9 +174,6 @@ export default function Busca() {
           </div>
         </div>
 
-        {/* Popular properties section */}
-
-        {/* Render properties */}
         {visibleImoveis.length > 0 ? (
           visibleImoveis.map((imovel) => (
             <ShowImovel key={imovel.id} imovel={imovel} />

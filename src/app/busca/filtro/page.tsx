@@ -117,7 +117,7 @@ export default function Filter() {
         <div className="mt-[32px] flex flex-col gap-[32px]">
           <DropdownField
             name="categoria"
-            options={['Apartamento', 'Casas', 'Comercial']}
+            options={['Apartamento', 'Casa', 'Comercial']}
             placeholder="Categoria"
             value={filters.categoria}
             onChange={(value) =>
