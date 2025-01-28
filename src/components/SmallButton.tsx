@@ -29,6 +29,7 @@ const SmallButton: React.FC<SmallButtonProps> = ({
     <button
       className={`${commonClasses} w-[108.67px] h-[45px]`}
       onClick={handleButtonClick}
+      name={text}
     >
       {text}
     </button>

@@ -7,12 +7,26 @@ import Footer from '@/components/Footer'
 import ShowImovel from '@/components/ShowImovel'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { ImovelLer } from '@/types/imovel'
+
+type TipoFilter = {
+  Apartamento: boolean
+  Casa: boolean
+  Comercial: boolean
+}
 
 export default function UserHome() {
   const { data: session } = useSession()
-  const [imoveis, setImoveis] = useState([])
+  const [imoveis, setImoveis] = useState<ImovelLer[]>([])
+  const [filteredImoveis, setFilteredImoveis] = useState<ImovelLer[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
+  const [inputValue, setInputValue] = useState<string>('')
+  const [tipoFilter, setTipoFilter] = useState<TipoFilter>({
+    Apartamento: false,
+    Casa: false,
+    Comercial: false,
+  })
 
   useEffect(() => {
     const fetchImoveis = async () => {
@@ -21,11 +35,15 @@ export default function UserHome() {
         if (!response.ok) {
           throw new Error('Failed to fetch imoveis')
         }
-        const data = await response.json()
-        console.log(data)
+        const data: ImovelLer[] = await response.json()
         setImoveis(data)
-      } catch (error) {
-        setError(error.message)
+        setFilteredImoveis(data)
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setError(error.message)
+        } else {
+          setError('Unknown error occurred')
+        }
       } finally {
         setIsLoading(false)
       }
@@ -33,6 +51,36 @@ export default function UserHome() {
 
     fetchImoveis()
   }, [])
+
+  const toggleTipoFilter = (tipo: keyof TipoFilter) => {
+    const updatedTipoFilter = { ...tipoFilter, [tipo]: !tipoFilter[tipo] }
+    setTipoFilter(updatedTipoFilter)
+  }
+
+  const filterImoveis = (search: string) => {
+    const filtered = imoveis.filter((imovel) => {
+      const textMatch =
+        imovel.nome.toLowerCase().includes(search.toLowerCase()) ||
+        imovel.endereco.cidade.toLowerCase().includes(search.toLowerCase()) ||
+        imovel.endereco.estado.toLowerCase().includes(search.toLowerCase()) ||
+        imovel.endereco.logradouro.toLowerCase().includes(search.toLowerCase())
+
+      let typeMatch = true
+      for (const tipo in tipoFilter) {
+        if (tipoFilter[tipo as keyof TipoFilter]) {
+          typeMatch = imovel.tipo === tipo.toUpperCase()
+        }
+      }
+
+      return textMatch && typeMatch
+    })
+
+    setFilteredImoveis(filtered)
+  }
+
+  useEffect(() => {
+    filterImoveis(inputValue)
+  }, [inputValue, tipoFilter])
 
   if (!session) {
     return <p>Loading session...</p>
@@ -57,23 +105,31 @@ export default function UserHome() {
           <InputField
             label=""
             type="string"
-            name="creci"
+            name="search"
             placeholder="Qual região você está procurando?"
             required
             className="pl-14 placeholder:text-black text-base"
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value)
+            }}
           />
           <Search size={24} className="absolute left-6" />
         </div>
         <div className="mt-[32px] flex gap-4">
-          {/* Botões dinâmicos */}
-          <SmallButton text="Apartamento" />
-          <SmallButton text="Casas" />
-          <SmallButton text="Comercial" />
+          {/* Dynamic Buttons */}
+          {Object.keys(tipoFilter).map((tipo) => (
+            <SmallButton
+              key={tipo}
+              text={tipo}
+              onClick={() => toggleTipoFilter(tipo as keyof TipoFilter)}
+            />
+          ))}
         </div>
         <h1 className="text-2xl font-bold mt-[32px] mb-[24px]">Populares</h1>
         <div className="flex flex-wrap gap-4 overflow-y-auto">
-          {/* List of Imoveis */}
-          {imoveis.map((imovel, index) => (
+          {/* List of Filtered Imoveis */}
+          {filteredImoveis.map((imovel, index) => (
             <ShowImovel key={index} imovel={imovel} />
           ))}
         </div>
