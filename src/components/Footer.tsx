@@ -29,7 +29,7 @@ const Footer = ({ activeState }: FooterProps) => {
 
       {/* Favoritos */}
       <a
-        href="/usuario/favoritos"
+        href="/favoritos"
         className={`flex w-[40px] text-center justify-center flex-col items-center ${
           activeState === 'Favoritos' ? 'text-marrom' : 'text-black-600'
         }`}

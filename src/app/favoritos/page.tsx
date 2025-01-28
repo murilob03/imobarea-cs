@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import SmallButton from '@/components/SmallButton'
 import InputField from '@/components/InputField'
@@ -13,18 +13,26 @@ export default function Favorites() {
 
   // Estado para armazenar o valor do input
   const [inputValue, setInputValue] = useState('')
+  const [favoritos, setFavoritos] = useState([]) // Estado para armazenar os imóveis favoritos
 
-  // Dados de exemplo dos imóveis
-  const imoveis = [
-    {
-      id: 1,
-      title: 'Noah',
-      location: 'Tiradentes - zona 1, Maringá - PR',
-      rating: 4.0,
-      image: 'https://via.placeholder.com/342x140',
-    },
-    // Adicione mais imóveis conforme necessário
-  ]
+  // Função que busca os imóveis favoritos do usuário
+  useEffect(() => {
+    const fetchFavoritos = async () => {
+      try {
+        const response = await fetch('/api/favoritos')
+        if (response.ok) {
+          const data = await response.json()
+          setFavoritos(data)
+        } else {
+          console.error('Falha ao buscar favoritos')
+        }
+      } catch (error) {
+        console.error('Erro ao buscar favoritos:', error)
+      }
+    }
+
+    fetchFavoritos()
+  }, []) // Executa a busca apenas uma vez após o primeiro render
 
   // Função para limpar o campo de entrada
   const clearInput = () => {
@@ -47,17 +55,14 @@ export default function Favorites() {
 
           {/* Div de imóveis populares */}
           <div className="flex flex-wrap gap-4 overflow-y-auto max-h-[calc(100vh-350px)] w-full my-6">
-            {/* Exemplo de como os imóveis serão renderizados */}
-            {/* <ShowImovel
-              title={imoveis[0].title}
-              location={imoveis[0].location}
-              rating={imoveis[0].rating}
-              image={imoveis[0].image}
-              area={100}
-              garage={2}
-              bedrooms={3}
-              builder="Construtora XYZ"
-            /> */}
+            {/* Exibindo os imóveis favoritos */}
+            {favoritos.length > 0 ? (
+              favoritos.map((imovel: any) => (
+                <ShowImovel key={imovel.id} imovel={imovel} />
+              ))
+            ) : (
+              <p>Você não tem imóveis favoritos.</p>
+            )}
           </div>
         </div>
       </div>
