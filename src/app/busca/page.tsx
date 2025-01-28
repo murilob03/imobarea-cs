@@ -25,6 +25,7 @@ export default function Busca() {
     maxTamanho: searchParams.get('maxTamanho'),
     minValor: searchParams.get('minValor'),
     maxValor: searchParams.get('maxValor'),
+    tipoOferta: searchParams.get('tipoOferta'),
   }
 
   // Set loading to false once session is available
@@ -107,6 +108,10 @@ export default function Busca() {
         ? imovel.valor <= parseInt(params.maxValor)
         : true
 
+      const tipoOfertaMatch = params.tipoOferta
+        ? imovel.tipoOferta === params.tipoOferta.toUpperCase()
+        : true
+
       // Only include properties that match all conditions
       return (
         textMatch &&
@@ -115,7 +120,8 @@ export default function Busca() {
         minTamanhoMatch &&
         maxTamanhoMatch &&
         minValorMatch &&
-        maxValorMatch
+        maxValorMatch &&
+        tipoOfertaMatch
       )
     })
 

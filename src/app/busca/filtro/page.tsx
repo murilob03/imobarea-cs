@@ -111,7 +111,13 @@ export default function Filter() {
     <div className="flex h-screen flex-col items-center bg-bege">
       <div className="p-[64px_24px] flex flex-col w-full justify-between">
         <div className="flex justify-end w-full mb-[16px]">
-          <X size={24} className="" onClick={() => {router.back()}} />
+          <X
+            size={24}
+            className=""
+            onClick={() => {
+              router.back()
+            }}
+          />
         </div>
         <div className="flex justify-between items-center w-full">
           <h1 className="text-2xl font-bold">Filtrar por</h1>
@@ -158,7 +164,7 @@ export default function Filter() {
           />
           <DropdownField
             name="tipoOferta"
-            options={['Venda', 'Compra']} 
+            options={['Venda', 'Aluguel']}
             placeholder="Tipo da Oferta"
             value={filters.tipoOferta}
             onChange={(value) =>
