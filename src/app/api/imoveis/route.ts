@@ -60,22 +60,6 @@ export async function GET(req: NextRequest) {
     })
   }
 
-  const imoveis = notHiddenImoveis.concat(hiddenImoveis)
-
-  //   const imoveisTipados: ImovelLer[] = imoveis.map((imovel) => {
-  //     return {
-  //       id: imovel.id,
-  //       nome: imovel.nome,
-  //       areaPrivada: imovel.areaPrivada,
-  //       numQuartos: imovel.numQuartos,
-  //       numVagas: imovel.numVagas,
-  //       tipo: imovel.tipo,
-  //       endereco: imovel.endereco,
-  //       imobiliariaId: imovel.imobiliariaId,
-  //       agenteId: imovel.agenteId,
-  //     }
-  //   })
-
   return NextResponse.json(notHiddenImoveis.concat(hiddenImoveis))
 }
 
@@ -124,6 +108,7 @@ export async function POST(req: NextRequest) {
         numQuartos: imovel.numQuartos,
         numVagas: imovel.numVagas,
         tipo: imovel.tipo,
+        valor: imovel.valor,
         endereco: {
           create: imovel.endereco,
         },
@@ -132,6 +117,68 @@ export async function POST(req: NextRequest) {
     })
 
     return NextResponse.json(novoImovel, { status: 201 })
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    )
+  }
+}
+
+// Rota para excluir um imóvel
+export async function DELETE(req: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions)
+    const { searchParams } = new URL(req.url)
+    const id = searchParams.get('id')
+
+    if (!session || !(session.user.role === 'IMOBILIARIA')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Id do imóvel não informado' },
+        { status: 400 }
+      )
+    }
+
+    const imovel = await prisma.imovel.findUnique({
+      where: { id },
+    })
+
+    if (!imovel) {
+      return NextResponse.json(
+        { error: 'Imóvel não encontrado' },
+        { status: 404 }
+      )
+    }
+
+    if (imovel.imobiliariaId !== session.user.id) {
+      return NextResponse.json(
+        // { error: 'Unauthorized! O imóvel não pertence a sua imobiliária!' },
+        { error: `Unauthorized! ${imovel.imobiliariaId} | ${session.user.id}` },
+        { status: 401 }
+      )
+    }
+
+    await prisma.imovel.delete({
+      where: { id },
+    })
+
+    const imovelDeletado = await prisma.imovel.findUnique({
+      where: { id },
+    })
+
+    if (imovelDeletado) {
+      return NextResponse.json(
+        { error: 'Erro ao deletar imóvel' },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json({ message: 'Imóvel deletado com sucesso' })
   } catch (error) {
     console.error(error)
     return NextResponse.json(
