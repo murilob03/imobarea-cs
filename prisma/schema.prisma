@@ -63,6 +63,7 @@ model Imovel {
     numQuartos    Int
     numVagas      Int
     tipo          String
+    valor         Float
     enderecoId    String
     imobiliariaId String
     agenteId      String?

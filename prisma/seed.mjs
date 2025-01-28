@@ -103,6 +103,7 @@ async function main() {
       numQuartos: 3,
       numVagas: 2,
       tipo: 'CASA',
+      valor: 300000,
       endereco: {
         create: {
           cep: 12345678,
@@ -128,6 +129,7 @@ async function main() {
       numQuartos: 4,
       numVagas: 3,
       tipo: 'APARTAMENTO',
+      valor: 10000000,
       endereco: {
         create: {
           cep: 87060450,

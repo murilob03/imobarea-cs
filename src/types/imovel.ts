@@ -11,6 +11,7 @@ export interface ImovelCriar {
   endereco: Endereco
   agente: any
   imobiliaria: any
+  valor: number
 
   imobiliariaId: string
   agenteId: string | null
