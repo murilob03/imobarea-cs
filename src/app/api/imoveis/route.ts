@@ -120,10 +120,12 @@ export async function POST(req: NextRequest) {
     const novoImovel = await prisma.imovel.create({
       data: {
         nome: imovel.nome,
+        valor: imovel.valor,
         areaPrivada: imovel.areaPrivada,
         numQuartos: imovel.numQuartos,
         numVagas: imovel.numVagas,
         tipo: imovel.tipo,
+        tipoOferta: imovel.tipoOferta,
         endereco: {
           create: imovel.endereco,
         },

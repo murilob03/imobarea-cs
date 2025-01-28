@@ -36,6 +36,9 @@ export default function RegistrationForm() {
     const form = e.currentTarget
 
     const nome = (form.elements.namedItem('name') as HTMLInputElement).value
+    const valor = Number(
+      (form.elements.namedItem('valor') as HTMLInputElement).value
+    )
     const areaPrivada = parseFloat(
       (form.elements.namedItem('area') as HTMLInputElement).value.replace(
         ',',
@@ -60,6 +63,7 @@ export default function RegistrationForm() {
     const estado = selectedOption
     const cidade = (form.elements.namedItem('cidade') as HTMLInputElement).value
     const tipo = (form.elements.namedItem('tipo') as HTMLSelectElement).value
+    const tipoOferta = (form.elements.namedItem('tipoOferta') as HTMLSelectElement).value
 
     const endereco: Endereco = {
       cep,
@@ -73,10 +77,12 @@ export default function RegistrationForm() {
 
     const novo_imovel: ImovelCriar = {
       nome,
+      valor,
       areaPrivada,
       numQuartos: parseInt(numQuartos),
       numVagas: parseInt(numVagas),
       tipo,
+      tipoOferta,
       endereco,
       imobiliariaId: session.user.id,
       agenteId: null,
@@ -93,7 +99,7 @@ export default function RegistrationForm() {
 
       if (response.ok) {
         console.log('Imóvel criado com sucesso!')
-        router.push('/dashboard') //TODO mudar aqui
+        router.push('/imoveis') //TODO mudar aqui
       } else {
         console.error('Erro ao criar imovel:', response.statusText)
       }
@@ -123,6 +129,13 @@ export default function RegistrationForm() {
           label="Nome do Imóvel:"
           type="text"
           name="name"
+          placeholder=""
+          required
+        />
+        <InputField
+          label="Valor do Imóvel:"
+          type="number"
+          name="valor"
           placeholder=""
           required
         />
@@ -204,6 +217,12 @@ export default function RegistrationForm() {
           name="tipo"
           options={['Apartamento', 'Casa', 'Comercial']}
           placeholder="Tipo Imóvel"
+        />
+        <DropdownField
+          className="font-bold"
+          name="tipoOferta"
+          options={['Venda', 'Aluguel']}
+          placeholder="Tipo de Oferta"
         />
         <DropdownField
           className="font-bold"
