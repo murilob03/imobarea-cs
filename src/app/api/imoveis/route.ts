@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  let whereClause: Record<string, any> = { escondido: false }
+  const whereClause: Record<string, any> = { escondido: false }
 
   const { searchParams } = new URL(req.url)
   const query = searchParams.get('query')
