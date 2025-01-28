@@ -41,7 +41,7 @@ model Agente {
 
     user        User         @relation(fields: [id], references: [id], onDelete: Cascade)
     imobiliaria Imobiliaria? @relation(fields: [imobiliariaId], references: [id])
-    /**
+    /*
      * One-to-many relationship with Imovel
      * agent can only associate with a Imovel if both belong to the same Imobiliaria
      * this constrait needs to be enforced in the application layer

@@ -81,8 +81,11 @@ const ShowImovel: React.FC<ShowImovelProps> = ({ imovel }) => {
           className="w-full h-full object-cover"
         />
         <div
-          className="absolute top-2 right-2 bg-white rounded-full p-1 shadow cursor-pointer"
-          onClick={toggleFavorito} // Chama a função para alternar o favorito
+          className="absolute top-2 right-2 bg-white rounded-full p-1 shadow cursor-pointer z-10"
+          onClick={(e) => {
+            e.stopPropagation()
+            toggleFavorito()
+          }}
         >
           <Heart
             size={16}
