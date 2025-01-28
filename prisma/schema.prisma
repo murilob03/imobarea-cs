@@ -68,6 +68,7 @@ model Imovel {
     imobiliariaId String
     agenteId      String?
     escondido     Boolean @default(false)
+    tipoOferta    String  @default("VENDA") // "COMPRA" ou "VENDA"
 
     imobiliaria Imobiliaria @relation(fields: [imobiliariaId], references: [id])
     endereco    Endereco    @relation(fields: [enderecoId], references: [id])

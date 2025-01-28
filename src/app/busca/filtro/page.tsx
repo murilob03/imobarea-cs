@@ -14,11 +14,13 @@ export default function Filter() {
     tamanho: string
     numero: string
     valor: string
+    tipoOferta: string
   }>({
     categoria: '',
     tamanho: '',
     numero: '',
     valor: '',
+    tipoOferta: '',
   })
 
   // Função para redefinir os valores dos filtros
@@ -28,6 +30,7 @@ export default function Filter() {
       tamanho: '',
       numero: '',
       valor: '',
+      tipoOferta: '',
     })
   }
 
@@ -87,6 +90,7 @@ export default function Filter() {
       numQuartos: filters.numero || null,
       minValor: valorOption?.min || null,
       maxValor: valorOption?.max || null,
+      tipoOferrta: filters.tiposOfertas || null,
     }
 
     // Remove null or undefined values from the object
@@ -146,6 +150,15 @@ export default function Filter() {
             name="valor"
             options={valorOptions.map((option) => option.label)}
             placeholder="Valor"
+            value={filters.valor}
+            onChange={(value) =>
+              setFilters((prev) => ({ ...prev, valor: value.toString() }))
+            }
+          />
+          <DropdownField
+            name="tipoOferta"
+            options={valorOptions.map((option) => option.label)}
+            placeholder="Tipo da Oferta"
             value={filters.valor}
             onChange={(value) =>
               setFilters((prev) => ({ ...prev, valor: value.toString() }))

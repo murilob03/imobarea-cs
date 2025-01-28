@@ -44,14 +44,25 @@ export default function ImovelPage() {
           />
         </div>
         <div className="p-6">
-          <SmallButton text={imovel.tipo} isSelected={true} />
-          <h3 className="text-2xl font-bold text-gray-800 mt-[16px]">
-            {imovel.nome}
-          </h3>
+          <div className="flex gap-4">
+            <div className="flex justify-center items-center text-xs rounded-full bg-transparent text-black border border-black w-[108.67px] h-[45px]">
+              {imovel.tipo}
+            </div>
+            <div className="flex justify-center items-center text-xs rounded-full bg-transparent text-black border border-black w-[108.67px] h-[45px]">
+              {imovel.tipoOferta}
+            </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-gray-800 mt-[16px]">
+              {imovel.nome}
+            </h3>
+            <h3 className="text-2xl mt-[16px]">R${imovel.valor}</h3>
+          </div>
           <div className="mt-4 text-xs space-y-4">
             <p className="flex items-center">
               <MapPin size={16} className="mr-2 " />
-              {imovel.endereco.logradouro} {imovel.endereco.numero}, {imovel.endereco.cidade} - {imovel.endereco.estado}
+              {imovel.endereco.logradouro} {imovel.endereco.numero},{' '}
+              {imovel.endereco.cidade} - {imovel.endereco.estado}
             </p>
             <p className="flex items-center">
               <Bed size={16} className="mr-2 " />
