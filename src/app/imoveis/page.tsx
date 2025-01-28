@@ -6,33 +6,34 @@ import Footer from '@/components/Footer'
 import EditImovel from '@/components/EditImovel'
 import CustomButton from '@/components/CustomButton'
 import { useSession } from 'next-auth/react'
+import { ImovelLer } from '@/types/imovel'
 
 export default function ListarImoveis() {
   const { data: session } = useSession()
-  const [imoveis, setImoveis] = useState([])
+  const [imoveis, setImoveis] = useState([] as ImovelLer[])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    const fetchImoveis = async () => {
-      try {
-        const response = await fetch(
-          `/api/imoveis/?query=imobiliariaId:${session?.user.id}`
-        )
-        if (!response.ok) {
-          const message = await response.json()
-          throw new Error(message.message || 'Erro ao buscar imóveis')
-        }
-        const data = await response.json()
-        setImoveis(data)
-      } catch (error) {
-        setError(error.message)
-      } finally {
-        setLoading(false)
+  const fetchImoveis = async () => {
+    try {
+      const response = await fetch(
+        `/api/imoveis/?query=imobiliariaId:${session?.user.id}`
+      )
+      if (!response.ok) {
+        const message = await response.json()
+        throw new Error(message.message || 'Erro ao buscar imóveis')
       }
+      const data = await response.json()
+      setImoveis(data)
+    } catch (error) {
+      setError(error.message)
+    } finally {
+      setLoading(false)
     }
+  }
 
-    fetchImoveis()
+  useEffect(() => {
+    if (session?.user) fetchImoveis()
   }, [session?.user])
 
   return (
@@ -50,13 +51,13 @@ export default function ListarImoveis() {
       {/* Renderiza a lista de imóveis */}
       {loading ? (
         // Esqueleto de carregamento no EditImovel
-        <EditImovel loading />
+        <p>Carregando...</p>
       ) : error ? (
         <p>Erro ao carregar imóveis: {error}</p>
       ) : imoveis.length > 0 ? (
         <div className="pb-20">
           {imoveis.map((imovel) => (
-            <EditImovel key={imovel.id} imovel={imovel} />
+            <EditImovel key={imovel.id} imovel={imovel} onExcluir={fetchImoveis} />
           ))}
         </div>
       ) : (
