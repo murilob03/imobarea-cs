@@ -1,7 +1,7 @@
 'use client'
 
 import { use, useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import InputField from '@/components/InputField'
 import { Search, CircleX, SlidersHorizontal, ArrowLeft } from 'lucide-react'
 import Footer from '@/components/Footer'
@@ -17,6 +17,15 @@ export default function Busca() {
   const [imoveis, setImoveis] = useState<ImovelLer[]>([])
   const [visibleImoveis, setVisibleImoveis] = useState<ImovelLer[]>([])
   const [loading, setLoading] = useState(true)
+  const searchParams = useSearchParams()
+  const params = {
+    categoria: searchParams.get('categoria'),
+    numQuartos: searchParams.get('numQuartos'),
+    minTamanho: searchParams.get('minTamanho'),
+    maxTamanho: searchParams.get('maxTamanho'),
+    minValor: searchParams.get('minValor'),
+    maxValor: searchParams.get('maxValor'),
+  }
 
   // Set loading to false once session is available
   useEffect(() => {
@@ -55,12 +64,9 @@ export default function Busca() {
   }
 
   const filterImoveis = () => {
-    if (!inputValue) {
-      setVisibleImoveis(imoveis)
-      return
-    }
-    const filteredImoveis = imoveis.filter(
-      (imovel) =>
+    let filteredImoveis = imoveis.filter((imovel) => {
+      // Base text match condition
+      const textMatch =
         imovel.nome.toLowerCase().includes(inputValue.toLowerCase()) ||
         imovel.tipo.toLowerCase().includes(inputValue.toLowerCase()) ||
         imovel.endereco.cidade
@@ -72,13 +78,55 @@ export default function Busca() {
         imovel.endereco.logradouro
           .toLowerCase()
           .includes(inputValue.toLowerCase())
-    )
+
+      // Filter by categoria if provided
+      const categoriaMatch = params.categoria
+        ? imovel.tipo === params.categoria
+        : true
+
+      // Filter by number of rooms if provided
+      const numQuartosMatch = params.numQuartos
+        ? imovel.numQuartos === parseInt(params.numQuartos)
+        : true
+
+      // Filter by minimum size if provided
+      const minTamanhoMatch = params.minTamanho
+        ? imovel.areaPrivada >= parseInt(params.minTamanho)
+        : true
+
+      // Filter by maximum size if provided
+      const maxTamanhoMatch = params.maxTamanho
+        ? imovel.areaPrivada <= parseInt(params.maxTamanho)
+        : true
+
+      // Only include properties that match all conditions
+      return (
+        textMatch &&
+        categoriaMatch &&
+        numQuartosMatch &&
+        minTamanhoMatch &&
+        maxTamanhoMatch
+      )
+    })
+
+    // if (params.minValor) {
+    //   filteredImoveis = filteredImoveis.filter(
+    //     (imovel) => imovel.valor >= parseInt(params.minValor)
+    //   )
+    // }
+
+    // if (params.maxValor) {
+    //   filteredImoveis = filteredImoveis.filter(
+    //     (imovel) => imovel.valor <= parseInt(params.maxValor)
+    //   )
+    // }
+
     setVisibleImoveis(filteredImoveis)
   }
 
   useEffect(() => {
     filterImoveis()
-  }, [inputValue])
+  }, [inputValue, imoveis])
 
   if (loading) return <p>Carregando...</p>
 
@@ -120,7 +168,7 @@ export default function Busca() {
           <div className="flex justify-end">
             <button
               className="flex items-center gap-2 text-base font-semibold px-4 py-2"
-              onClick={() => router.push('/usuario/busca/filtro')}
+              onClick={() => router.push('/busca/filtro')}
             >
               <SlidersHorizontal size={18} />
               filtrar
