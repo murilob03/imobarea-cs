@@ -74,7 +74,12 @@ export default function ImovelPage() {
             <h3 className="text-2xl font-bold text-gray-800 mt-[16px]">
               {imovel.nome}
             </h3>
-            <h3 className="text-2xl mt-[16px]">R${imovel.valor}</h3>
+            <h3 className="text-base font-bold truncate mt-[16px]">
+              {new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              }).format(imovel.valor)}
+            </h3>
           </div>
           <div className="mt-4 text-xs space-y-4">
             <p className="flex items-center">
