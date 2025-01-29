@@ -44,7 +44,7 @@ export default function ProfileHeader({
       </p>
       {agente || isImobiliaria ? (
         <div className="flex flex-row items-center gap-1">
-          <p>{avaliacao}</p>
+          <p>{avaliacao.toFixed(1)}</p>
           <Star size="16" />
         </div>
       ) : null}

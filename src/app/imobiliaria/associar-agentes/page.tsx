@@ -184,7 +184,7 @@ export default function AssociarAgente() {
           <CustomButton
             text="Continuar"
             onClick={() => {
-              router.push('/inicio')
+              router.push('/agentes')
             }}
             type="button"
           />
