@@ -63,7 +63,9 @@ export default function RegistrationForm() {
     const estado = selectedOption
     const cidade = (form.elements.namedItem('cidade') as HTMLInputElement).value
     const tipo = (form.elements.namedItem('tipo') as HTMLSelectElement).value
-    const tipoOferta = (form.elements.namedItem('tipoOferta') as HTMLSelectElement).value
+    const tipoOferta = (
+      form.elements.namedItem('tipoOferta') as HTMLSelectElement
+    ).value
 
     const endereco: Endereco = {
       cep,
@@ -215,13 +217,13 @@ export default function RegistrationForm() {
         <DropdownField
           className="font-bold"
           name="tipo"
-          options={['Apartamento', 'Casa', 'Comercial']}
+          options={['APARTAMENTO', 'CASA', 'COMERCIAL']}
           placeholder="Tipo Imóvel"
         />
         <DropdownField
           className="font-bold"
           name="tipoOferta"
-          options={['Venda', 'Aluguel']}
+          options={['VENDA', 'ALUGUEL']}
           placeholder="Tipo de Oferta"
         />
         <DropdownField

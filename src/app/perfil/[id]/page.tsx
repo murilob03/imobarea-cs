@@ -84,7 +84,7 @@ export default function Perfil() {
   let isImobiliaria = false
   switch (usuario.role) {
     case 'IMOBILIARIA':
-      imagem = '/opcaologo.png'
+      imagem = '/imobile.png'
       isImobiliaria = true
       break
     case 'AGENTE':
