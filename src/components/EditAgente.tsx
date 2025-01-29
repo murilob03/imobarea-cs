@@ -4,13 +4,27 @@ import { AgenteLer } from '@/types/usuarios'
 
 interface EditAgenteProps {
   agente: AgenteLer
+  onDelete?: () => void
 }
 
-const EditAgente = ({ agente }: EditAgenteProps) => {
+const EditAgente = ({ agente, onDelete }: EditAgenteProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
   const handleToggle = () => {
     setIsExpanded(!isExpanded)
+  }
+
+  const handleDelete = () => {
+    try {
+      fetch(`/api/agente/${agente.id}`, {
+        method: 'DELETE',
+      })
+      if (onDelete) {
+        onDelete()
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -43,7 +57,10 @@ const EditAgente = ({ agente }: EditAgenteProps) => {
       {/* Botões adicionais, aparecem somente quando expandido */}
       {isExpanded && (
         <div className="flex w-full flex-shrink-0 gap-3">
-          <button className="flex w-full py-3 justify-center bg-white rounded-full shadow-md">
+          <button
+            className="flex w-full py-3 justify-center bg-white rounded-full shadow-md"
+            onClick={handleDelete}
+          >
             Excluir
           </button>
         </div>

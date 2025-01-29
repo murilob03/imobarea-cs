@@ -6,5 +6,8 @@ export const config = {
     '/imobiliaria/:path*',
     '/imoveis/novo',
     '/agentes',
+    '/perfil',
+    '/imoveis',
+    '/inicio',
   ], // Protect routes under /dashboard
 }

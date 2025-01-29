@@ -9,8 +9,6 @@ export interface ImovelCriar {
   numVagas: number
   tipo: string // TODO: Criar enum para tipo de imóvel
   endereco: Endereco
-  // agente: any
-  // imobiliaria: any
   valor: number
   tipoOferta: string // TODO: Criar enum para tipo de oferta
 

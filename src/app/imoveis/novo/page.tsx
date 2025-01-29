@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InputField from '@/components/InputField'
 import DropdownButton from '@/components/DropdownButton'
 import DropdownField from '@/components/DropdownField'
@@ -13,12 +13,39 @@ import { Endereco } from '@/types/endereco'
 import { ImovelCriar } from '@/types/imovel'
 import { useSession } from 'next-auth/react'
 import { UserRole } from '@/types'
+import { AgenteLer } from '@/types/usuarios'
 
 export default function RegistrationForm() {
   const { data: session } = useSession()
   const router = useRouter()
 
   const [selectedOption, setSelectedOption] = useState('PR')
+  const [agenteOptions, setAgenteOptions] = useState<Record<string, string>>({})
+
+  useEffect(() => {
+    const fetchAgentes = async () => {
+      try {
+        const response = await fetch('/api/agente')
+        if (!response.ok) {
+          throw new Error('Failed to fetch agentes')
+        }
+        const data: AgenteLer[] = await response.json()
+        if (data.length > 0) {
+          const agentes: Record<string, string> = {} // Define an empty object
+
+          data.forEach((agente) => {
+            agentes[agente.name] = agente.id // Assign each name to its corresponding ID
+          })
+
+          setAgenteOptions(agentes)
+        }
+      } catch (error: unknown) {
+        console.error('Erro ao buscar agentes:', error)
+      }
+    }
+
+    if (session) fetchAgentes()
+  }, [session?.user])
 
   if (!session) {
     return <p>Loading...</p>
@@ -67,6 +94,10 @@ export default function RegistrationForm() {
       form.elements.namedItem('tipoOferta') as HTMLSelectElement
     ).value
 
+    const agente = (form.elements.namedItem('agentes') as HTMLSelectElement)
+      .value
+    const agenteId = agenteOptions[agente] || null
+
     const endereco: Endereco = {
       cep,
       logradouro: rua,
@@ -87,7 +118,7 @@ export default function RegistrationForm() {
       tipoOferta,
       endereco,
       imobiliariaId: session.user.id,
-      agenteId: null,
+      agenteId: agenteId,
     }
 
     try {
@@ -229,7 +260,7 @@ export default function RegistrationForm() {
         <DropdownField
           className="font-bold"
           name="agentes"
-          options={['Agente 10', 'Agente 12', 'Agente 07']}
+          options={Object.keys(agenteOptions)}
           placeholder="Agentes"
         />
         <ImageField

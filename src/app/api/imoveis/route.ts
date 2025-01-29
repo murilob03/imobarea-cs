@@ -114,6 +114,7 @@ export async function POST(req: NextRequest) {
           create: imovel.endereco,
         },
         imobiliaria: { connect: { id: imovel.imobiliariaId } },
+        agente: imovel.agenteId ? { connect: { id: imovel.agenteId } } : undefined,
       },
     })
 

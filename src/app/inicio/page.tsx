@@ -68,7 +68,8 @@ export default function UserHome() {
       let typeMatch = true
       for (const tipo in tipoFilter) {
         if (tipoFilter[tipo as keyof TipoFilter]) {
-          typeMatch = imovel.tipo === tipo.toUpperCase()
+          typeMatch = imovel.tipo.toUpperCase() === tipo.toUpperCase()
+          if (typeMatch) break // if any type matches, break the loop
         }
       }
 

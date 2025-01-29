@@ -14,6 +14,7 @@ import Footer from '@/components/Footer'
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { ImovelLer } from '@/types/imovel'
+import Link from 'next/link'
 
 export default function ImovelPage() {
   const params = useParams<{ id: string }>()
@@ -99,31 +100,40 @@ export default function ImovelPage() {
               <Car size={16} className="mr-2 " />
               Vagas na garagem: {imovel.numVagas}
             </p>
-            <p className="flex items-center">
-              <Briefcase size={16} className="mr-2 " />
-              Imobiliária: {imovel.imobiliaria.user.name}
-            </p>
+            <div className="flex items-center gap-x-1">
+              <Briefcase size={16} className="mr-2" />
+              <span>Imobiliária:</span>
+              <Link
+                href={`/perfil/${imovel.imobiliaria.id}`}
+                className="text-blue-500"
+              >
+                {imovel.imobiliaria.user.name}
+              </Link>
+            </div>
             <label className="block font-bold">
               Agente Imobiliário Responsável
             </label>
             {/* Verificação se o agente imobiliário existe */}
             {imovel.agente ? (
-              <div className="bg-marrom w-[342px] h-[84px] pt-3 rounded-2xl justify-between ">
-                <div className="flex flex-row gap-3 items-center justify-between ml-2">
-                  <Image
-                    src="/koreano.png"
-                    alt="Foto do agente"
-                    style={{
-                      border: '5px solid #9D6F4D',
-                      borderRadius: '50%',
-                    }}
-                    width={60}
-                    height={60}
-                  />
-                  <h1 className="text-base">{imovel.agente.user.name}</h1>
-                  <MessageCircle size={30} className="mr-2" />
+              <Link href={`/perfil/${imovel.agente.id}`}>
+                <div className="bg-marrom w-[342px] h-[84px] rounded-2xl flex items-center mt-2">
+                  <div className="flex flex-row gap-3 items-center justify-between w-full">
+                    <Image
+                      src="/koreano.png"
+                      alt="Foto do agente"
+                      style={{
+                        border: '5px solid #9D6F4D',
+                        borderRadius: '50%',
+                      }}
+                      width={60}
+                      height={60}
+                      className="ml-2"
+                    />
+                    <h1 className="text-base">{imovel.agente.user.name}</h1>
+                    <MessageCircle size={30} className="mx-2" />
+                  </div>
                 </div>
-              </div>
+              </Link>
             ) : (
               <p className="text-gray-600">Não há agente imobiliário.</p>
             )}

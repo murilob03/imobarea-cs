@@ -15,22 +15,22 @@ export default function ListarAgentesCadastrados() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    const fetchAgentes = async () => {
-      try {
-        const response = await fetch('/api/agente')
-        if (!response.ok) {
-          throw new Error('Failed to fetch agentes')
-        }
-        const data = await response.json()
-        setAgentes(data)
-      } catch (error: any) {
-        setError(error.message)
-      } finally {
-        setIsLoading(false)
+  const fetchAgentes = async () => {
+    try {
+      const response = await fetch('/api/agente')
+      if (!response.ok) {
+        throw new Error('Failed to fetch agentes')
       }
+      const data = await response.json()
+      setAgentes(data)
+    } catch (error: any) {
+      setError(error.message)
+    } finally {
+      setIsLoading(false)
     }
+  }
 
+  useEffect(() => {
     fetchAgentes()
   }, [])
 
@@ -66,7 +66,7 @@ export default function ListarAgentesCadastrados() {
       <div className="flex flex-col gap-6 w-full">
         {agentes.length > 0 ? (
           agentes.map((agente, index) => (
-            <EditAgente key={index} agente={agente} />
+            <EditAgente key={index} agente={agente} onDelete={fetchAgentes}/>
           ))
         ) : (
           <p>No agentes found.</p>
