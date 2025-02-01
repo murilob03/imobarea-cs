@@ -2,7 +2,7 @@ import prisma from '@/db'
 import { ImovelCriar } from '@/types/imovel'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
-import { authOptions } from '../auth/[...nextauth]/route'
+import { authOptions } from '@/lib/authOptions'
 import { ImovelLer } from '@/types/imovel'
 
 // Rota para recuperar imóveis

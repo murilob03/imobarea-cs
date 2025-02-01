@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import CustomButton from '@/components/CustomButton'
-import { authOptions } from './api/auth/[...nextauth]/route'
+import { authOptions } from '@/lib/authOptions'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 

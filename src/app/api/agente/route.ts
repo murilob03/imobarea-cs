@@ -2,7 +2,7 @@ import prisma from '@/db'
 import { AgenteLer } from '@/types/usuarios'
 import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../auth/[...nextauth]/route'
+import { authOptions } from '@/lib/authOptions'
 
 // Rota para buscar um agente pelo seu CRECI ou todos os agente associados a uma imobiliária (se não for passado o CRECI)
 export async function GET(req: Request) {

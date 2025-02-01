@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../auth/[...nextauth]/route'
+import { authOptions } from '@/lib/authOptions'
 import prisma from '@/db'
 
 // Adicionar ou remover favoritos
@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const existingFavorito = await prisma.Favorito.findUnique({
+  const existingFavorito = await prisma.favorito.findUnique({
     where: {
       userId_imovelId: {
         userId: session.user.id,
@@ -30,14 +30,14 @@ export async function POST(req: NextRequest) {
   })
 
   if (existingFavorito) {
-    await prisma.Favorito.delete({
+    await prisma.favorito.delete({
       where: {
         id: existingFavorito.id,
       },
     })
     return NextResponse.json({ message: 'Favorito removido' }, { status: 200 })
   } else {
-    const favorito = await prisma.Favorito.create({
+    const favorito = await prisma.favorito.create({
       data: {
         userId: session.user.id,
         imovelId,
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
   }
 
   // Consulta os imóveis favoritos do usuário logado
-  const favoritosImoveis = await prisma.Favorito.findMany({
+  const favoritosImoveis = await prisma.favorito.findMany({
     where: {
       userId: session.user.id,
     },

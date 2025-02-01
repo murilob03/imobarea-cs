@@ -94,10 +94,10 @@ export default function Filter() {
       tipoOferta: filters.tipoOferta || null,
     }
 
-    // Remove null or undefined values from the object
+    // Remove null or undefined values from the object and cast to Record<string, string>
     const notEmptyProcessedFilters = Object.fromEntries(
       Object.entries(processedFilters).filter(([_, value]) => value !== null)
-    )
+    ) as Record<string, string>
 
     return notEmptyProcessedFilters
   }
